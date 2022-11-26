@@ -2,7 +2,13 @@
 //SQL-Update for WP-Database
 function set_database_value($table, $attr, $val){
     global $wpdb;
-    $wpdb->update(add_prefix($table),array($attr=>$val),array('dummy_bool'=>'1'));
+    set_database_value_COMP($table, $attr, $val, 'dummy_bool', '1');
+}
+
+//SQL-Update for WP-Database with WHERE
+function set_database_value_COMP($table, $attr, $val, $where, $is){
+    global $wpdb;
+    $wpdb->update(add_prefix($table),array($attr=>$val),array($where=>$is));
 }
 
 //SQL-Querry for WP-Database
@@ -20,8 +26,8 @@ function insert_into_database($table, $attr, $val){
 
 //SQL-Querry for WP-Database
 function is_function_activated($func){
-    $bool = get_database_value(add_prefix('super_main',$func));
-    return ($bool==1);
+    $bool = get_database_value('super_main',$func);
+    return ($bool == true);
 }
 
 //Adds current prefix to name of table
