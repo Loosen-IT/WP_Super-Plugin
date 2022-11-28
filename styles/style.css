@@ -1,3 +1,5 @@
+@import url();
+
 body {
   background: #ffffff;
 }
@@ -212,8 +214,8 @@ textarea:focus {
 .about-wrap .nav-tab-active,
 .nav-tab-active,
 .nav-tab-active:hover {
-  background-color:  #919191;
-  border-bottom-color:  #919191;
+  background-color:  #0067bc;
+  border-bottom-color:  #0067bc;
 }
 
 /* Admin Menu: submenu */
@@ -222,11 +224,11 @@ textarea:focus {
 #adminmenu .wp-has-current-submenu.opensub .wp-submenu,
 .folded #adminmenu .wp-has-current-submenu .wp-submenu,
 #adminmenu a.wp-has-current-submenu:focus + .wp-submenu {
-  background:  #919191;
+  background:  #0067bc;
 }
 
 #adminmenu li.wp-has-submenu.wp-not-current-submenu.opensub:hover:after {
-  border-right-color: #919191;
+  border-right-color: #0067bc;
 }
 
 #adminmenu .wp-submenu .wp-submenu-head {
@@ -270,7 +272,7 @@ textarea:focus {
 
 ul#adminmenu a.wp-has-current-submenu:after,
 ul#adminmenu > li.current > a.current:after {
-  border-right-color:  #919191;
+  border-right-color:  #0067bc;
 }
 
 #adminmenu li.current a.menu-top,
@@ -343,7 +345,7 @@ ul#adminmenu > li.current > a.current:after {
 #wpadminbar.nojs .ab-top-menu > li.menupop:hover > .ab-item,
 #wpadminbar .ab-top-menu > li.menupop.hover > .ab-item {
   color: #d54e21;
-  background: #919191;
+  background: #0067bc;
 }
 
 #wpadminbar:not(.mobile) > #wp-toolbar li:hover span.ab-label,
@@ -361,12 +363,12 @@ ul#adminmenu > li.current > a.current:after {
 
 /* Admin Bar: submenu */
 #wpadminbar .menupop .ab-sub-wrapper {
-  background:  #919191;
+  background:  #0067bc;
 }
 
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
 #wpadminbar .quicklinks .menupop ul.ab-sub-secondary .ab-submenu {
-  background: #919191;
+  background: #0067bc;
 }
 
 #wpadminbar .ab-submenu .ab-item,
@@ -423,7 +425,7 @@ ul#adminmenu > li.current > a.current:after {
 
 #wpadminbar > #wp-toolbar > #wp-admin-bar-top-secondary > #wp-admin-bar-search #adminbarsearch input.adminbar-input:focus {
   color: #ffffff;
-  background: #919191;
+  background: #0067bc;
 }
 
 /* Admin Bar: recovery mode */
@@ -447,8 +449,8 @@ ul#adminmenu > li.current > a.current:after {
 
 /* Admin Bar: my account */
 #wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img {
-  border-color: #919191;
-  background-color: #919191;
+  border-color: #0067bc;
+  background-color: #0067bc;
 }
 
 #wpadminbar #wp-admin-bar-user-info .display-name {
