@@ -20,7 +20,7 @@ function super_register(){
     add_menu_page('Super-Plugin', 'Super-Plugin', 'edit_plugins','super_plugin','super_menu','dashicons-superhero',2);
     add_submenu_page('super_plugin', 'Super-Plugin', 'Übersicht','edit_plugins','super_plugin', 'super_menu',1);
     add_submenu_page('super_plugin','Individualisierung', 'Individualisierung', 'edit_plugins', 'super_customizer', 'super_customizer');
-    add_submenu_page('super_plugin','Impressum', 'Impressum und Haftungsausschluss', 'read', 'super_impress', 'super_impress', 10);
+    add_submenu_page('super_plugin','Information', 'Lizensierung und Haftungsausschluss', 'read', 'super_impress', 'super_impress', 10);
 
 }
 add_action('admin_menu','super_register');
