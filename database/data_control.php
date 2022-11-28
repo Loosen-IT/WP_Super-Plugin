@@ -46,7 +46,7 @@ function delete_all_databases(){
 function check_requirements($version){
     global $wpdb;
     require_once(ABSPATH.'wp-admin/includes/upgrade.php');
-    $main_scheme="CREATE TABLE ".add_prefix('super_main')."(version VARCHAR(20),dummy_bool boolean DEFAULT true,debug_mode boolean DEFAULT false,quick_copy_pages boolean DEFAULT false,quick_copy_posts boolean DEFAULT false,PRIMARY KEY(version))";
+    $main_scheme="CREATE TABLE ".add_prefix('super_main')."(version VARCHAR(20),dummy_bool boolean DEFAULT true,debug_mode boolean DEFAULT false,quick_copy_pages boolean DEFAULT false,quick_copy_posts boolean DEFAULT false,custom_colors boolean DEFAULT false,custom_menus boolean DEFAULT false, PRIMARY KEY(version))";
     //Checks existence of main-table (lists functions of super-plugin) and creates if not
     if($wpdb-> get_var("SHOW TABLES LIKE ".add_prefix('super_main')) != add_prefix('super_main')){
         dbDelta($main_scheme);

@@ -14,7 +14,7 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         <div class="col-6">
             <div class="container bg-light rounded border">
                 <h5 class="pt-2">Quick-Copy</h5>
-                <span>Ermöglicht es in der Tabellenansicht der Pages bzw. Posts schnell Beiträge zu kopieren.</span>
+                <span>Kopiere Pages und Posts schnell und einfach in der Tabellenübersicht.</span>
                 <form class="py-2" method="post" action="
                 <?php
                 if(isset($_POST['copy_submit'])){
@@ -32,7 +32,22 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         </div>
         <div class="col-6">
             <div class="container bg-light rounded border">
-                <h6 class="pt-2">More is coming soon...</h6>
+                <h5 class="pt-2">Individualisierung</h5>
+                <span>Passe das WP-Admin Menü nach deinen Vorlieben an.</span>
+                <form class="py-2" method="post" action="
+                <?php
+                if(isset($_POST['menu_submit'])){
+                    set_database_value('super_main', 'custom_colors', isset($_POST['custom_colors']));
+                    set_database_value('super_main', 'quick_copy_pages', isset($_POST['custom_menus']));
+                    wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css');
+                }
+                ?>">
+                    <input type="checkbox" name="custom_colors" <?php if(is_function_activated('custom_colors')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Farbverwaltung für WP-Admin</label><br>
+                    <input type="checkbox" name="custom_menus" <?php if(is_function_activated('custom_menus')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Menümanager für WP-Admin</label><br>
+                    <div class="pt-3 pb-1">
+                        <button name="copy_submit" class="btn btn-secondary" type="submit">Bestätige</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
