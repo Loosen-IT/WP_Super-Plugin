@@ -2,7 +2,7 @@
 require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
 ?>
 <link href="<?php echo plugin_dir_url(__DIR__).'/pages/styles/bootstrap.css'; ?>" rel="stylesheet">
-<div class="container-fluent pt-3" style="background-color:<?php get_database_value('super_color','color_back')?>">
+<div class="container-fluent pt-3 pe-3">
     <div class="row px-2">
         <div class="col">
             <h3>Übersicht</h3>
@@ -38,14 +38,14 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
                 <?php
                 if(isset($_POST['menu_submit'])){
                     set_database_value('super_main', 'custom_colors', isset($_POST['custom_colors']));
-                    set_database_value('super_main', 'quick_copy_pages', isset($_POST['custom_menus']));
-                    wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css');
+                    set_database_value('super_main', 'custom_menus', isset($_POST['custom_menus']));
+                    if(isset($_POST['custom_colors'])){ wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css'); }
                 }
                 ?>">
-                    <input type="checkbox" name="custom_colors" <?php if(is_function_activated('custom_colors')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Farbverwaltung für WP-Admin</label><br>
+                    <input type="checkbox" name="custom_colors" <?php if(is_function_activated('custom_colors')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Farbanpassung für WP-Admin</label><br>
                     <input type="checkbox" name="custom_menus" <?php if(is_function_activated('custom_menus')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Menümanager für WP-Admin</label><br>
                     <div class="pt-3 pb-1">
-                        <button name="copy_submit" class="btn btn-secondary" type="submit">Bestätige</button>
+                        <button name="menu_submit" class="btn btn-secondary" type="submit">Bestätige</button>
                     </div>
                 </form>
             </div>
@@ -77,4 +77,5 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     </div>
 </div>
 <?php
+if(is_function_activated('custom_colors')){ wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css'); }
 ?>

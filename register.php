@@ -28,7 +28,7 @@ add_action('admin_menu','super_register');
 //Registration of menu-pages
 function super_impress(){ include('pages/page_impress.php'); }
 function super_customizer(){ include('pages/page_customizer.php'); }
-function super_menu(){ include('pages/page_menu.php'); }
+function super_menu(){ include('pages/page_super.php'); }
 
 //Registration of needed functions
 include('functions/func_copy.php');

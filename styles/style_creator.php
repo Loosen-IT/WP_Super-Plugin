@@ -1,11 +1,11 @@
 <?php
 //Creates new Stylesheet by filling placeholders with database-entries
 function update_stylesheet(){
-    require_once('../database/data_control.php');
+    require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     $path = plugin_dir_path( __FILE__ );
     $mask = fopen($path.'/mask.css',"r");
     $style = fopen($path.'/style.css', "w");
-    $table = add_prefix('super_colors');
+    $table = 'super_colors';
     fwrite($style, "");
     while(!feof($mask)){
         $line = fgets($mask);

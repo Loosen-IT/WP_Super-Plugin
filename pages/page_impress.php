@@ -2,7 +2,7 @@
 require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
 ?>
 <link href="<?php echo plugin_dir_url(__DIR__).'/pages/styles/bootstrap.css'; ?>" rel="stylesheet">
-<div class="container-fluent pt-3" style="background-color:<?php get_database_value('super_color','color_back')?>">
+<div class="container-fluent pt-3 pe-3">
     <div class="row px-2 pe-4">
         <div class="col">
             <h5>Lizensierung</h5>
@@ -15,11 +15,8 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
             <br>
             <label class="pb-2">
                 Das Super-Plugin ist ein hoch-individualisiertes Produkt und ist in enger Zusammenarbeit mit dem unten aufgelisteten Lizenzinhaber entstanden.
-                Das Lizenzprodukt ist eine Anwendungs-Erweiterung: Der Wordpress-Quellcode bleibt unverändert.
-            </label>
-            <br>
-            <label>
-                Nutzungs- und Vermarktungslizenzen können bei den unten aufgelisteten Lizenzurheber und Lizenzinhaber erworben werden.
+                Das Lizenzprodukt ist eine Anwendungs-Erweiterung: Der Wordpress-Quellcode bleibt unverändert. Nutzungs- und Vermarktungslizenzen können bei dem
+                unten aufgelisteten Lizenzurheber oder dem Lizenzinhaber erworben werden.
             </label>
         </div>
     </div>
@@ -61,10 +58,10 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
             <label class="pb-2">
                 Wordpress ist eine komplexe Anwendung, welche regelmäßig aktualisiert und in der Regel durch weitere Plugins ergänzt wird.
                 Dadurch können, auch wenn der Lizenzurheber um eine Vermeidung bemüht ist, Inkompatibilitäten und Fehler nicht ausgeschlossen werden.
-                So treten Lizenzurheber und Lizenzinhaber von ihrer Haftungspflicht zurück und haften nicht für Schäden, insbesondere nicht für unmittelbare oder mittelbare Folgeschäden,
-                Datenverlust, entgangenen Gewinn, System- oder Produktionsausfälle, die durch die Nutzung des Super-Plugins entstehen. Liegt bei einem
-                entstandenen Schaden durch die Nutzung des Super-Plugins Vorsatz oder grobe Fahrlässigkeit vor, gilt der Haftungsausschluss nicht.
-                Die Nutzung des Super-Plugins geschieht also "auf eigene Gefahr". Dieser Sachverhalt wird auch in den Lizenzverträgen klar kommuniziert.
+                Sowohl Lizenzurheber, als auch Lizenzinhaber, haften nicht für Schäden, insbesondere nicht für unmittelbare oder mittelbare Folgeschäden,
+                Datenverlust, entgangenen Gewinn, System- oder Produktionsausfälle, die durch die Nutzung des Super-Plugins entstehen. Liegt bei einem entstandenen
+                Schaden durch die Nutzung des Super-Plugins Vorsatz oder grobe Fahrlässigkeit vor, gilt der Haftungsausschluss nicht.
+                Dieser Sachverhalt wird auch in den Lizenzverträgen klar kommuniziert.
             </label>
             <label class="pb-2">
                 Desweiteren stellt das Super-Plugin Sicherheitsfunktionen zur Verfügung. Diese bieten aber keinen allumfassenden Schutz.
@@ -75,4 +72,5 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         </div>
     </div>
 <?php
+if(is_function_activated('custom_colors')){ wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css'); }
 ?>

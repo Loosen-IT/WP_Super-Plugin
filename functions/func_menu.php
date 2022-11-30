@@ -110,6 +110,7 @@ function get_menu_url($menu){
     return get_site_url().'/wp-admin/'.$url;
 }
 
+//Gets original name for a menu
 function get_orig_name($name){
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     $val=get_database_value_COMP('super_menus', 'old_name', 'new_name', cut_menu_name($name));
