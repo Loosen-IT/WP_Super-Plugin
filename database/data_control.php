@@ -18,10 +18,23 @@ function get_database_value($table, $attr){
     return $val;
 }
 
-//SQL-Inserttion for WP-Database
+//SQL-Querry for WP-Database with WHERE
+function get_database_value_COMP($table, $attr, $where, $is){
+    global $wpdb;
+    $val = $wpdb -> get_var("SELECT ".$attr." FROM ".add_prefix($table)." WHERE ".$where."='".$is."'");
+    return $val;
+}
+
+//SQL-Insertion for WP-Database
 function insert_into_database($table, $attr, $val){
     global $wpdb;
     $wpdb -> insert(add_prefix($table), array($attr=>$val,));
+}
+
+//SQL-Insertion with multiple Attributes
+function insert_into_database_ARR($table, $arr){
+    global $wpdb;
+    $wpdb -> insert(add_prefix($table), $arr);
 }
 
 //SQL-Querry for WP-Database
@@ -68,10 +81,10 @@ function check_requirements($version){
     }
     //Checks existence of menu-table (old and new names) and creates if not
     if($wpdb-> get_var("SHOW TABLES LIKE ".add_prefix('super_menus')) != add_prefix('super_menus')){
-        dbDelta("CREATE TABLE ".add_prefix('super_menus')."(name_org VARCHAR(40),name_new VARCHAR(40),PRIMARY KEY(name_org))");
+        dbDelta("CREATE TABLE ".add_prefix('super_menus')."(menu_type VARCHAR(50),old_name VARCHAR(50),new_name VARCHAR(50),PRIMARY KEY(old_name))");
     }
     //Checks existence of capability-table (original menu and new capability) and creates if not
     if($wpdb-> get_var("SHOW TABLES LIKE ".add_prefix('super_capabilities')) != add_prefix('super_capabilities')){
-        dbDelta("CREATE TABLE ".add_prefix('super_capabilities')."(menu_org VARCHAR(40),capability_new VARCHAR(40),PRIMARY KEY(menu_org))");
+        dbDelta("CREATE TABLE ".add_prefix('super_capabilities')."(menu_org VARCHAR(50),capability_new VARCHAR(50),PRIMARY KEY(menu_org))");
     }
 }
