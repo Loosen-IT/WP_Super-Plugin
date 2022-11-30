@@ -32,9 +32,6 @@ function super_menu(){ include('pages/page_menu.php'); }
 
 //Registration of needed functions
 include('functions/func_copy.php');
-<<<<<<< Updated upstream
-=======
 include('functions/func_color.php');
 include('functions/func_menu.php');
->>>>>>> Stashed changes
 

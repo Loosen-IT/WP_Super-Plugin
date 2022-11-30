@@ -1,8 +1,4 @@
 <?php
-<<<<<<< Updated upstream
-
-?>
-=======
 require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
 require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
 ?>
@@ -277,4 +273,3 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
 <?php
 if(is_function_activated('custom_colors')){ wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css'); }
 ?>
->>>>>>> Stashed changes

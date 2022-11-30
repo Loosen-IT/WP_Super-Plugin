@@ -1,6 +1,4 @@
 <?php
-<<<<<<< Updated upstream
-=======
 //Cuts menu names and removes notifications
 function cut_menu_name($name){
     $arr = explode(" ", $name);
@@ -144,4 +142,3 @@ function override_menu_defaults(){
 }
 add_action( 'admin_menu', 'override_menu_defaults' );
 ?>
->>>>>>> Stashed changes
