@@ -115,8 +115,8 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
             <div class="container-fluid bg-light rounded border">
                 <h5 class="pt-2">Menümanager <?php if(!is_function_activated('custom_menus')){ echo '[DEAKTIVIERT]'; } ?></h5>
                 <span>Verwalte hier die Menüs und Submenüs, ändere ihre Namen und setze neue Capabilities.</span>
-                <div class="row">
-                    <div class="col-5">
+                <div class="row pb-3">
+                    <div class="col-6">
                     <?php
                         global $menu, $wp_roles;
                         $roles = $wp_roles->roles;
@@ -134,7 +134,8 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                         <form input method="post" action="
                                         <?php
                                         if(isset($_POST[$tag.'_submit'])){
-                                        //Has to be set
+                                            require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
+                                            rename_menu(cut_menu_name($menuARR[0]),$_POST['name'],'menu');
                                         }
                                         ?>">
                                             <div class="input-group mb-3">
@@ -145,16 +146,38 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                 <span class="input-group-text" style="max-width:6em; min-width:7em;">Menü-Url</span>
                                                 <input type="text" class="form-control" disabled value="<?php echo get_menu_url($menuARR);?>" style="min-width:23em;">
                                             </div>
+                                            <div class="container">
                                             <?php
+                                            $run = 0;
                                             foreach(array_keys($roles['administrator']['capabilities']) as $capability){
-                                                ?>
-                                                <input class="form-checkbox" type="radio" name="capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
-                                                <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label><br>
-                                                <?php
+                                                if($run==0){
+                                                    ?>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input class="form-checkbox" type="radio" name="capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
+                                                            <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label>
+                                                        </div>
+                                                    <?php
+                                                    $run=1;
+                                                }
+                                                else{
+                                                    ?>
+                                                        <div class="col">
+                                                            <input class="form-checkbox" type="radio" name="capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
+                                                            <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                    $run=0;
+                                                }
                                             }
+                                            if($run==1) { echo '</div>'; };
+                                            ?>
+                                            </div>
+                                            <?php
                                             if(is_function_activated('custom_menus')) {
                                             ?>
-                                            <div class="pt-3 pb-1">
+                                            <div class="pt-3">
                                                 <button name="<?php echo $tag; ?>_submit" class="btn btn-secondary" type="submit">Bestätige</button>
                                             </div>
                                             <?php } ?>
@@ -167,8 +190,80 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                         }
                     ?>
                     </div>
-                    <div class="col-5">
-
+                    <div class="col-6">
+                        <?php
+                        global $submenu, $wp_roles;
+                        $roles = $wp_roles->roles;
+                        $index = 0;
+                        require_once(plugin_dir_path(__DIR__).'functions/func_menu.php');
+                        foreach($submenu as $sub){
+                            foreach($sub as $menuArr){
+                                if($menuArr[0] != ""){
+                                    $tag = "submenu".$index;
+                                    ?>
+                                    <div class="card p-0">
+                                        <div class="card-header rounded bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $tag; ?>" aria-expanded="false" aria-controls="collapse<?php echo $tag; ?>">
+                                            <?php echo cut_menu_name($menuArr[2]).": ".cut_menu_name($menuArr[0]); ?>
+                                        </div>
+                                        <div class="card-body collapse input-group rounded" id="collapse<?php echo $tag; ?>">
+                                            <form input method="post" action="
+                                            <?php
+                                            if(isset($_POST[$tag.'_submit'])){
+                                                //Has to be set
+                                            }
+                                            ?>">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="name" style="max-width:6em; min-width:7em;">Menü-Titel</span>
+                                                    <input type="text" name="name" class="form-control" value="<?php echo cut_menu_name($menuArr[0]); ?>" aria-describedby="name" style="min-width:23em;">
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" style="max-width:6em; min-width:7em;">Menü-Url</span>
+                                                    <input type="text" class="form-control" disabled value="<?php echo get_menu_url($menuArr);?>" style="min-width:23em;">
+                                                </div>
+                                                <div class="container">
+                                                    <?php
+                                                    $run = 0;
+                                                    foreach(array_keys($roles['administrator']['capabilities']) as $capability){
+                                                        if($run==0){
+                                                            ?>
+                                                            <div class="row">
+                                                            <div class="col">
+                                                                <input class="form-checkbox" type="radio" name="capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
+                                                                <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label>
+                                                            </div>
+                                                            <?php
+                                                            $run=1;
+                                                        }
+                                                        else{
+                                                            ?>
+                                                            <div class="col">
+                                                                <input class="form-checkbox" type="radio" name="capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
+                                                                <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label>
+                                                            </div>
+                                                            </div>
+                                                            <?php
+                                                            $run=0;
+                                                        }
+                                                    }
+                                                    if($run==1) { echo '</div>'; };
+                                                    ?>
+                                                </div>
+                                                <?php
+                                                if(is_function_activated('custom_menus')) {
+                                                    ?>
+                                                    <div class="pt-3">
+                                                        <button name="<?php echo $tag; ?>_submit" class="btn btn-secondary" type="submit">Bestätige</button>
+                                                    </div>
+                                                <?php } ?>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                $index++;
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

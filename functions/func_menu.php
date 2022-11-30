@@ -3,17 +3,16 @@
 function cut_menu_name($name){
     $arr = explode(" ", $name);
     $ret = $arr[0];
-
     for($i=1;$i<sizeof($arr);$i++){
         if(str_contains('<span', $arr[$i])){
             return $ret;
         }
         $ret = $ret.' '.$arr[$i];
     }
-
     return $ret;
 }
 
+//Finds Url of a WP-Admin menu
 function get_admin_menu_item_url( $menu_item_file, $submenu_as_parent = true ) {
     global $menu, $submenu, $self, $parent_file, $submenu_file, $plugin_page, $typenow;
     $admin_is_parent = false;
@@ -104,9 +103,43 @@ function get_admin_menu_item_url( $menu_item_file, $submenu_as_parent = true ) {
     return esc_url( $url );
 }
 
+//Gets URL for a menu
 function get_menu_url($menu){
     $file = $menu[2];
     $url = get_admin_menu_item_url( $file );
     return get_site_url().'/wp-admin/'.$url;
 }
+
+//Gets original name for a menu
+function get_orig_name($name){
+    require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
+    $val=get_database_value_COMP('super_menus', 'old_name', 'new_name', cut_menu_name($name));
+    if(is_null($val)) { return $name; }
+    else { return $val; }
+}
+
+//Creates a new name for a menu
+function rename_menu($old_name, $new_name, $type){
+    $old_name = get_orig_name($old_name);
+    require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
+    $val=get_database_value_COMP('super_menus', 'new_name', 'old_name', cut_menu_name($old_name));
+    if(is_null($val)) { insert_into_database_ARR('super_menus', array('old_name'=>$old_name,'menu_type'=>$type,'new_name'=>$new_name,));}
+    else { set_database_value_COMP('super_menus', 'new_name', $new_name, 'old_name', $old_name); }
+}
+
+//Overrides all new information of the menu-customizer
+function override_menu_defaults(){
+    require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
+    if(is_function_activated('custom_menus')){
+        global $menu;
+        foreach($menu as $arr){
+            $val=get_database_value_COMP('super_menus', 'new_name', 'old_name', cut_menu_name($arr[0]));
+            if(!is_null($val)){
+                $index=array_search($arr,$menu);
+                $menu[$index][0]=$val;
+            }
+        }
+    };
+}
+add_action( 'admin_menu', 'override_menu_defaults' );
 ?>

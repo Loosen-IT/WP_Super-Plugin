@@ -33,4 +33,5 @@ function super_menu(){ include('pages/page_super.php'); }
 //Registration of needed functions
 include('functions/func_copy.php');
 include('functions/func_color.php');
+include('functions/func_menu.php');
 
