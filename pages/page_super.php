@@ -6,8 +6,7 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     <div class="row px-2">
         <div class="col">
             <h3>Übersicht</h3>
-            <label class="pb-4">Dies ist das Hauptmenü des Super-Plugins. Hier können die einzelnen Funktionen aktiviert und deaktiviert werden.<br>
-               Die Übersicht wird nur Benutzern mit der Capability "edit_plugins" angezeigt.</label>
+            <label class="pb-4">Dies ist das Hauptmenü des Super-Plugins. Hier können die einzelnen Funktionen aktiviert und deaktiviert werden.</label>
         </div>
     </div>
     <div class="row p-2 pb-3 pe-4">

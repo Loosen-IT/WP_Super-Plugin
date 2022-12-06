@@ -8,8 +8,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
     <div class="row px-2">
         <div class="col">
             <h3>Individualisierung</h3>
-            <label class="pb-4">Hier kann die Benutzerfläche von WP-Admin angepasst werden.<br>
-                Die Übersicht wird nur Benutzern mit der Capability "edit_plugins" angezeigt.</label>
+            <label class="pb-4">Hier kann die Benutzerfläche von WP-Admin angepasst werden.</label>
         </div>
     </div>
     <div class="row p-2 pb-3 pe-4">
