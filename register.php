@@ -13,7 +13,7 @@
 //Registration of new menus
 function super_register(){
     $version='0.1';
-    require_once('database/data_control.php');
+    require_once(plugin_dir_path(__FILE__).'database/data_control.php');
     check_requirements($version);
 
     /** --- --- registers the menus in wp-admin --- --- **/
@@ -26,12 +26,16 @@ function super_register(){
 add_action('admin_menu','super_register');
 
 //Registration of menu-pages
-function super_impress(){ include('pages/page_impress.php'); }
-function super_customizer(){ include('pages/page_customizer.php'); }
-function super_menu(){ include('pages/page_super.php'); }
+function super_impress(){ include(plugin_dir_path(__FILE__).'pages/page_impress.php'); }
+function super_customizer(){ include(plugin_dir_path(__FILE__).'pages/page_customizer.php'); }
+function super_menu(){ include(plugin_dir_path(__FILE__).'pages/page_super.php'); }
 
 //Registration of needed functions
-include('functions/func_copy.php');
-include('functions/func_color.php');
-include('functions/func_menu.php');
+include(plugin_dir_path(__FILE__).'functions/func_copy.php');
+include(plugin_dir_path(__FILE__).'functions/func_color.php');
+include(plugin_dir_path(__FILE__).'functions/func_menu.php');
+
+//Hook functions (Secure uninstallation)
+include(plugin_dir_path(__FILE__).'functions/func_hooks.php');
+
 

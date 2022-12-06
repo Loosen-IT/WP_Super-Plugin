@@ -117,6 +117,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                 <span>Verwalte hier die Menüs und Submenüs, ändere ihre Namen und setze neue Capabilities.</span>
                 <div class="row pb-3">
                     <div class="col-6">
+                    <h5 class="pt-4">Menüs</h5>
                     <?php
                         global $menu, $wp_roles;
                         $roles = $wp_roles->roles;
@@ -135,7 +136,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                         <?php
                                         if(isset($_POST[$tag.'_submit'])){
                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                            rename_menu(cut_menu_name($menuARR[0]),$_POST['name'],'menu');
+                                            rename_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST['name']);
                                         }
                                         ?>">
                                             <div class="input-group mb-3">
@@ -191,6 +192,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                     ?>
                     </div>
                     <div class="col-6">
+                        <h5 class="pt-4">Submenüs</h5>
                         <?php
                         global $submenu, $wp_roles;
                         $roles = $wp_roles->roles;
@@ -209,7 +211,8 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                             <form input method="post" action="
                                             <?php
                                             if(isset($_POST[$tag.'_submit'])){
-                                                //Has to be set
+                                                require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
+                                                rename_menu($menuArr[2],cut_menu_name($menuArr[0]),$_POST['name']);
                                             }
                                             ?>">
                                                 <div class="input-group mb-3">

@@ -111,20 +111,22 @@ function get_menu_url($menu){
 }
 
 //Gets original name for a menu
-function get_orig_name($name){
+function get_orig_name($name, $slug){
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
-    $val=get_database_value_COMP('super_menus', 'old_name', 'new_name', cut_menu_name($name));
+    $val=get_database_value_MULT('super_menus', 'old_name', array('slug'=>$slug,'new_name'=>$name));
     if(is_null($val)) { return $name; }
     else { return $val; }
 }
 
 //Creates a new name for a menu
-function rename_menu($old_name, $new_name, $type){
-    $old_name = get_orig_name($old_name);
+function rename_menu($slug, $old_name, $new_name){
+    $old_name = get_orig_name($old_name, $slug);
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
-    $val=get_database_value_COMP('super_menus', 'new_name', 'old_name', cut_menu_name($old_name));
-    if(is_null($val)) { insert_into_database_ARR('super_menus', array('old_name'=>$old_name,'menu_type'=>$type,'new_name'=>$new_name,));}
-    else { set_database_value_COMP('super_menus', 'new_name', $new_name, 'old_name', $old_name); }
+    $val=get_database_value_MULT('super_menus','new_name',array('slug'=>$slug,'old_name'=>$old_name));
+    if(is_null($val)) { insert_into_database_MULT('super_menus', array('old_name'=>$old_name,'slug'=>$slug,'new_name'=>$new_name));}
+    else {
+        set_database_value_MULT('super_menus', array('new_name'=>$new_name), array('old_name'=>$old_name,'slug'=>$slug));
+    }
 }
 
 //Overrides all new information of the menu-customizer
@@ -133,10 +135,20 @@ function override_menu_defaults(){
     if(is_function_activated('custom_menus')){
         global $menu;
         foreach($menu as $arr){
-            $val=get_database_value_COMP('super_menus', 'new_name', 'old_name', cut_menu_name($arr[0]));
+            $val=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$arr[2], 'old_name'=>cut_menu_name($arr[0])));
             if(!is_null($val)){
                 $index=array_search($arr,$menu);
                 $menu[$index][0]=$val;
+            }
+        }
+        global $submenu;
+        foreach($submenu as $sub){
+            foreach($sub as $ARR){
+                $val=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$ARR[2], 'old_name'=>cut_menu_name($ARR[0])));
+                if(!is_null($val)){
+                    $index=array_search($ARR,$sub);
+                    $submenu[array_search($sub,$submenu)][$index][0]=$val;
+                }
             }
         }
     };
