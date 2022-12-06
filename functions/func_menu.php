@@ -133,25 +133,29 @@ function rename_menu($slug, $old_name, $new_name){
 function override_menu_defaults(){
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     if(is_function_activated('custom_menus')){
+
         global $menu;
         foreach($menu as $arr){
-            $val=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$arr[2], 'old_name'=>cut_menu_name($arr[0])));
-            if(!is_null($val)){
+            $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$arr[2], 'old_name'=>cut_menu_name($arr[0])));
+            if(!is_null($name)){
                 $index=array_search($arr,$menu);
-                $menu[$index][0]=$val;
+                $override=str_replace(cut_menu_name($menu[$index][0]),$name,$menu[$index][0]);
+                $menu[$index][0]=$override;
             }
         }
+
         global $submenu;
         foreach($submenu as $sub){
             foreach($sub as $ARR){
-                $val=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$ARR[2], 'old_name'=>cut_menu_name($ARR[0])));
-                if(!is_null($val)){
+                $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$ARR[2], 'old_name'=>cut_menu_name($ARR[0])));
+                if(!is_null($name)){
                     $index=array_search($ARR,$sub);
-                    $submenu[array_search($sub,$submenu)][$index][0]=$val;
+                    $override=str_replace(cut_menu_name($sub[$index][0]),$name,$sub[$index][0]);
+                    $submenu[array_search($sub,$submenu)][$index][0]=$override;
                 }
             }
         }
-    };
+    }
 }
 add_action( 'admin_menu', 'override_menu_defaults', 999);
 
