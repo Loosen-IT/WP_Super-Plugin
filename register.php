@@ -35,7 +35,12 @@ include(plugin_dir_path(__FILE__).'functions/func_copy.php');
 include(plugin_dir_path(__FILE__).'functions/func_color.php');
 include(plugin_dir_path(__FILE__).'functions/func_menu.php');
 
-//Hook functions (Secure uninstallation)
-include(plugin_dir_path(__FILE__).'functions/func_hooks.php');
+//Secure uninstallation
+function secure_uninstall(){
+    if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { exit(); }
+    require_once(plugin_dir_path(__FILE__).'database/data_control.php');
+    delete_all_databases();
+}
+register_deactivation_hook(__FILE__,'secure_uninstall');
 
 
