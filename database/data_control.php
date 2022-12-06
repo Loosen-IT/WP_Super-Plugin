@@ -76,15 +76,15 @@ function check_requirements($version){
     }
     //Checks existence of color-table (for color-customizer) and creates if not
     if($wpdb-> get_var("SHOW TABLES LIKE ".add_prefix('super_colors')) != add_prefix('super_colors')){
-        dbDelta("CREATE TABLE ".add_prefix('super_colors')."(dummy_bool boolean DEFAULT true,color_base VARCHAR(10) DEFAULT '#3e94c3',color_text VARCHAR(10) DEFAULT '#ffffff',color_high VARCHAR(10) DEFAULT '#d54e21',color_subh VARCHAR(10) DEFAULT '#0067bc',color_note VARCHAR(10) DEFAULT '#d54e21',color_link VARCHAR(10) DEFAULT '#1e73be',color_form VARCHAR(10) DEFAULT '#3e94c3',color_back VARCHAR(10) DEFAULT '#ffffff',PRIMARY KEY(dummy_bool))");
+        dbDelta("CREATE TABLE ".add_prefix('super_colors')."(dummy_bool boolean DEFAULT true,color_base VARCHAR(7) DEFAULT '#3e94c3',color_text VARCHAR(7) DEFAULT '#ffffff',color_high VARCHAR(7) DEFAULT '#d54e21',color_subh VARCHAR(7) DEFAULT '#0067bc',color_note VARCHAR(7) DEFAULT '#d54e21',color_link VARCHAR(7) DEFAULT '#1e73be',color_form VARCHAR(7) DEFAULT '#3e94c3',color_back VARCHAR(7) DEFAULT '#ffffff',PRIMARY KEY(dummy_bool))");
         insert_into_database('super_colors','dummy_bool',true);
     }
     //Checks existence of menu-table (old and new names) and creates if not
     if($wpdb-> get_var("SHOW TABLES LIKE ".add_prefix('super_menus')) != add_prefix('super_menus')){
-        dbDelta("CREATE TABLE ".add_prefix('super_menus')."(menu_type VARCHAR(50),old_name VARCHAR(50),new_name VARCHAR(50),PRIMARY KEY(old_name))");
+        dbDelta("CREATE TABLE ".add_prefix('super_menus')."(menu_type VARCHAR(128),old_name VARCHAR(128),new_name VARCHAR(128),PRIMARY KEY(old_name))");
     }
     //Checks existence of capability-table (original menu and new capability) and creates if not
     if($wpdb-> get_var("SHOW TABLES LIKE ".add_prefix('super_capabilities')) != add_prefix('super_capabilities')){
-        dbDelta("CREATE TABLE ".add_prefix('super_capabilities')."(menu_org VARCHAR(50),capability_new VARCHAR(50),PRIMARY KEY(menu_org))");
+        dbDelta("CREATE TABLE ".add_prefix('super_capabilities')."(menu_org VARCHAR(128),capability_new VARCHAR(128),PRIMARY KEY(menu_org))");
     }
 }
