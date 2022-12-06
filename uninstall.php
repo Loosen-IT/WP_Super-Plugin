@@ -1,14 +1,12 @@
 <?php
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { exit(); }
-require_once(plugin_dir_path(__FILE__).'database/data_control.php');
-global $wpdb;
-$main = $wpdb->prefix.'super_main';
-$colors = $wpdb->prefix.'super_colors';
-$capabilities = $wpdb->prefix.'super_capabilities';
-$menus = $wpdb->prefix.'super_menus';
+if( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) exit();
 
-$wpdb-> query ("DROP TABLE IF EXISTS {$main}");
-$wpdb-> query ("DROP TABLE IF EXISTS {$colors}");
-$wpdb-> query ("DROP TABLE IF EXISTS {$capabilities}");
-$wpdb-> query ("DROP TABLE IF EXISTS {$menus}");
+//Deletes tables, which are created by the superplugin
+global $wpdb;
+$prefix = $wpdb->prefix;
+$wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_main" );
+$wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_colors" );
+$wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_capabilities" );
+$wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_menus" );
+
 ?>
