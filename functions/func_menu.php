@@ -118,15 +118,25 @@ function get_orig_name($name, $slug){
     else { return $val; }
 }
 
-//Creates a new name for a menu
-function rename_menu($slug, $old_name, $new_name){
+//Changes capability and name of menu
+function change_menu($slug, $old_name, $new_name){
     $old_name = get_orig_name($old_name, $slug);
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
-    $val=get_database_value_MULT('super_menus','new_name',array('slug'=>$slug,'old_name'=>$old_name));
-    if(is_null($val)) { insert_into_database_MULT('super_menus', array('old_name'=>$old_name,'slug'=>$slug,'new_name'=>$new_name));}
+
+    $name=get_database_value_MULT('super_menus','new_name',array('slug'=>$slug,'old_name'=>$old_name));
+    $capability=get_database_value_MULT('super_capabilities','capability',array('slug'=>$slug,'org_name'=>$old_name));
+
+    if(is_null($name)) { insert_into_database_MULT('super_menus', array('old_name'=>$old_name,'slug'=>$slug,'new_name'=>$new_name));}
     else {
         set_database_value_MULT('super_menus', array('new_name'=>$new_name), array('old_name'=>$old_name,'slug'=>$slug));
     }
+
+    /*
+    if(is_null($capability)) { insert_into_database_MULT('super_capabilities', array('org_name'=>$old_name,'slug'=>$slug,'capability'=>$new_capability));}
+    else {
+        set_database_value_MULT('super_capabilities', array('capability'=>$new_capability), array('org_name'=>$old_name,'slug'=>$slug));
+    }
+    */
 }
 
 //Overrides all new information of the menu-customizer
@@ -137,10 +147,17 @@ function override_menu_defaults(){
         global $menu;
         foreach($menu as $arr){
             $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$arr[2], 'old_name'=>cut_menu_name($arr[0])));
+            $capability=get_database_value_MULT('super_capabilities', 'capability', array('slug'=>$arr[2], 'org_name'=>cut_menu_name($arr[0])));
+
+            $index=array_search($arr,$menu);
             if(!is_null($name)){
-                $index=array_search($arr,$menu);
                 $override=str_replace(cut_menu_name($menu[$index][0]),$name,$menu[$index][0]);
                 $menu[$index][0]=$override;
+            }
+            if(!is_null($capability)){
+                if(!current_user_can($capability)){
+                    $menu[$index][1]='manage_sites';
+                }
             }
         }
 
@@ -148,16 +165,24 @@ function override_menu_defaults(){
         foreach($submenu as $sub){
             foreach($sub as $ARR){
                 $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$ARR[2], 'old_name'=>cut_menu_name($ARR[0])));
+                $capability=get_database_value_MULT('super_capabilities', 'capability', array('slug'=>$ARR[2], 'org_name'=>cut_menu_name($ARR[0])));
+                $index=array_search($ARR,$sub);
                 if(!is_null($name)){
-                    $index=array_search($ARR,$sub);
                     $override=str_replace(cut_menu_name($sub[$index][0]),$name,$sub[$index][0]);
                     $submenu[array_search($sub,$submenu)][$index][0]=$override;
                 }
+                if(!is_null($capability)){
+                    if(!current_user_can($capability)){
+                        $menu[$index][1]='manage_sites';
+                    }
+                }
             }
         }
+
     }
 }
 add_action( 'admin_menu', 'override_menu_defaults', 999);
+
 
 function recreate_footer(){
     global $submenu;
@@ -165,6 +190,5 @@ function recreate_footer(){
     $footer_text = 'Individualisiert durch das <a href="'.$url.'">Super-Plugin</a> |'.'&nbsp'.'<a href="https://feldmannservices.de/" target="_blank">FeldmannServices e.K.</a>';
     return $footer_text;
 }
-add_filter('admin_footer_text','recreate_footer')
-
+add_filter('admin_footer_text','recreate_footer');
 ?>

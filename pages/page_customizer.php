@@ -137,7 +137,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                     if(isset($_POST[$tag.'_submit'])){
                                         if($_POST[$tag.'_name'] != ""){
                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                            rename_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name']);
+                                            change_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name']);
                                         }
                                     }
                                     ?>
@@ -150,17 +150,26 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                             <span class="input-group-text" style="max-width:6em; min-width:7em;">Menü-Url</span>
                                             <input type="text" class="form-control" disabled value="<?php echo get_menu_url($menuARR);?>" style="min-width:23em;">
                                         </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" style="max-width:12em; min-width:12em;">Required Capability</span>
+                                            <input type="text" class="form-control" disabled value="<?php echo $menuARR[1]?>" style="min-width:23em;">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
+                                            <select name="<?php echo $tag; ?>_addcap" class="form-select" aria-label="Default select example">
+                                                <option selected>Keine Auswahl</option>
+                                                <?php
+                                                foreach (array_keys($roles['administrator']['capabilities']) as $capability){
+                                                    ?>
+                                                    <option value="<?php echo $capability; ?>"><?php echo $capability; ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
                                         <div class="row">
                                         <?php
-                                        $run = 1;
-                                        foreach(array_keys($roles['administrator']['capabilities']) as $capability){
-                                            ?>
-                                            <div class="col-4">
-                                                <input class="form-checkbox" type="radio" name="<?php echo $tag; ?>_capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
-                                                <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label>
-                                            </div>
-                                        <?php
-                                        }
+
                                         ?>
                                         </div>
                                         <?php
@@ -188,7 +197,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                     if(isset($_POST[$tag.'_submit'])){
                                                         if($_POST[$tag.'_name'] != ""){
                                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                                            rename_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name']);
+                                                            change_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name']);
                                                         }
                                                     }
                                                     ?>
@@ -201,22 +210,29 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                             <span class="input-group-text" style="max-width:6em; min-width:7em;">Menü-Url</span>
                                                             <input type="text" class="form-control" disabled value="<?php echo get_menu_url($submenuARR);?>" style="min-width:23em;">
                                                         </div>
-                                                        <div class="row">
-                                                            <?php
-                                                            $run = 1;
-                                                            foreach(array_keys($roles['administrator']['capabilities']) as $capability){
-                                                                if($menuARR[2]=="super_plugin" && $submenuARR[2]=="super_impress") {}
-                                                                else{
-                                                                    ?>
-                                                                    <div class="col-4">
-                                                                        <input class="form-checkbox" type="radio" name="<?php echo $tag; ?>_capability" value="<?php echo $capability; ?>" <?php if($menuARR[1]==$capability){ echo 'checked'; } ?>>
-                                                                        <label class="pe-1" style="vertical-align:top"><?php echo $capability; ?></label>
-                                                                    </div>
-                                                                    <?php
-                                                                }
-                                                            }
-                                                            ?>
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" style="max-width:12em; min-width:12em;">Required Capability</span>
+                                                            <input type="text" class="form-control" disabled value="<?php echo $submenuARR[1]?>" style="min-width:23em;">
                                                         </div>
+                                                        <?php
+                                                        if(strcmp($submenuARR[2],"super_impress")!=0){
+                                                            ?>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
+                                                                <select name="<?php echo $tag; ?>_addcap" class="form-select" aria-label="Default select example">
+                                                                    <option selected>Keine Auswahl</option>
+                                                                    <?php
+                                                                    foreach (array_keys($roles['administrator']['capabilities']) as $capability){
+                                                                        ?>
+                                                                        <option value="<?php echo $capability; ?>"><?php echo $capability; ?></option>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                         <?php
                                                         if(is_function_activated('custom_menus')) {
                                                             ?>
