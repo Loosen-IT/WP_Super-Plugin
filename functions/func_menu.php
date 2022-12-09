@@ -1,15 +1,8 @@
 <?php
 //Cuts menu names and removes notifications
 function cut_menu_name($name){
-    $arr = explode(" ", $name);
-    $ret = $arr[0];
-    for($i=1;$i<sizeof($arr);$i++){
-        if(str_contains('<span', $arr[$i])){
-            return $ret;
-        }
-        $ret = $ret.' '.$arr[$i];
-    }
-    return $ret;
+    $arr = explode("<", $name);
+    return $arr[0];
 }
 
 //Finds Url of a WP-Admin menu
@@ -119,24 +112,28 @@ function get_orig_name($name, $slug){
 }
 
 //Changes capability and name of menu
-function change_menu($slug, $old_name, $new_name){
+function change_menu($slug, $old_name, $new_name,$new_capability){
+    if(strcmp($new_capability,"nicht ausgewaehlt")==0) { $new_capability="nicht_ausgewaehlt"; }
     $old_name = get_orig_name($old_name, $slug);
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
 
-    $name=get_database_value_MULT('super_menus','new_name',array('slug'=>$slug,'old_name'=>$old_name));
-    $capability=get_database_value_MULT('super_capabilities','capability',array('slug'=>$slug,'org_name'=>$old_name));
+    $val=get_database_value_MULT('super_menus','new_name',array('slug'=>$slug,'old_name'=>$old_name));
 
-    if(is_null($name)) { insert_into_database_MULT('super_menus', array('old_name'=>$old_name,'slug'=>$slug,'new_name'=>$new_name));}
+    if(is_null($val)) { insert_into_database_MULT('super_menus', array('old_name'=>$old_name,'slug'=>$slug,'new_name'=>$new_name,'capability'=>$new_capability));}
     else {
-        set_database_value_MULT('super_menus', array('new_name'=>$new_name), array('old_name'=>$old_name,'slug'=>$slug));
+        set_database_value_MULT('super_menus', array('new_name'=>$new_name,'capability'=>$new_capability), array('old_name'=>$old_name,'slug'=>$slug));
     }
+}
 
-    /*
-    if(is_null($capability)) { insert_into_database_MULT('super_capabilities', array('org_name'=>$old_name,'slug'=>$slug,'capability'=>$new_capability));}
+//Gets current added Capability
+function current_capability($slug,$old_name){
+    $old_name = get_orig_name($old_name,$slug);
+    $capability=get_database_value_MULT('super_menus','capability',array('slug'=>$slug,'old_name'=>$old_name));
+    if(is_null($capability)){ return "nicht ausgewaehlt"; }
     else {
-        set_database_value_MULT('super_capabilities', array('capability'=>$new_capability), array('org_name'=>$old_name,'slug'=>$slug));
+        if(strcmp($capability,"nicht_ausgewaehlt")==0) { return "nicht ausgewaehlt"; }
+        else { return $capability; }
     }
-    */
 }
 
 //Overrides all new information of the menu-customizer
@@ -147,7 +144,7 @@ function override_menu_defaults(){
         global $menu;
         foreach($menu as $arr){
             $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$arr[2], 'old_name'=>cut_menu_name($arr[0])));
-            $capability=get_database_value_MULT('super_capabilities', 'capability', array('slug'=>$arr[2], 'org_name'=>cut_menu_name($arr[0])));
+            $capability=get_database_value_MULT('super_menus', 'capability', array('slug'=>$arr[2], 'old_name'=>cut_menu_name($arr[0])));
 
             $index=array_search($arr,$menu);
             if(!is_null($name)){
@@ -165,14 +162,14 @@ function override_menu_defaults(){
         foreach($submenu as $sub){
             foreach($sub as $ARR){
                 $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$ARR[2], 'old_name'=>cut_menu_name($ARR[0])));
-                $capability=get_database_value_MULT('super_capabilities', 'capability', array('slug'=>$ARR[2], 'org_name'=>cut_menu_name($ARR[0])));
+                $capability=get_database_value_MULT('super_menus', 'capability', array('slug'=>$ARR[2], 'old_name'=>cut_menu_name($ARR[0])));
                 $index=array_search($ARR,$sub);
                 if(!is_null($name)){
                     $override=str_replace(cut_menu_name($sub[$index][0]),$name,$sub[$index][0]);
                     $submenu[array_search($sub,$submenu)][$index][0]=$override;
                 }
                 if(!is_null($capability)){
-                    if(!current_user_can($capability)){
+                    if(strcmp($capability,"nicht_ausgewaehlt")!=0 && !current_user_can($capability)){
                         $menu[$index][1]='manage_sites';
                     }
                 }

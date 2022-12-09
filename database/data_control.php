@@ -71,13 +71,22 @@ function add_prefix($table){
     return $prefix.$table;
 }
 
-//Destroy all super-plugin databases
-function delete_all_databases(){
+//Truncate a table
+function truncate_table($table){
     global $wpdb;
-    $wpdb->query("DROP TABLE IF EXISTS ".add_prefix('super_main'));
-    $wpdb->query("DROP TABLE IF EXISTS ".add_prefix('super_colors'));
-    $wpdb->query("DROP TABLE IF EXISTS ".add_prefix('super_menus'));
-    $wpdb->query("DROP TABLE IF EXISTS ".add_prefix('super_capabilities'));
+    $wpdb->query('TRUNCATE TABLE '.add_prefix($table));
+}
+
+//SQL-Delete for WP-Database
+function delete_from_database($table, $where, $is){
+    global $wpdb;
+    $wpdb -> $wpdb->delete( add_prefix($table), array($where=>$is));
+}
+
+//SQL-Delete for WP-Database with multiple arguments
+function delete_from_database_MULT($table, $whereAndIs){
+    global $wpdb;
+    $wpdb -> $wpdb->delete( add_prefix($table), $whereAndIs);
 }
 
 //Checks the current plugin-version and update/create tables if needed

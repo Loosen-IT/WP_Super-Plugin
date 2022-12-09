@@ -6,7 +6,6 @@ global $wpdb;
 $prefix = $wpdb->prefix;
 $wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_main" );
 $wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_colors" );
-$wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_capabilities" );
 $wpdb->query( "DROP TABLE IF EXISTS {$prefix}super_menus" );
 
 ?>

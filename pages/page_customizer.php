@@ -122,12 +122,13 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                 global $menu, $submenu, $wp_roles;
                 $roles = $wp_roles->roles;
                 $index = 0;
+                $counter = 0;
                 foreach($menu as $menuARR){
                     if($menuARR[0]!=""){
                         $tag = "menu".$index;
                         ?>
                         <div class="container d-grid pb-3 px-2">
-                            <button class="btn btn-secondary d-flex rounded-0 rounded-top" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $tag; ?>" aria-expanded="false" aria-controls="<?php echo $tag; ?>">
+                            <button class="btn d-flex btn-secondary rounded-0 rounded-top" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $tag; ?>" aria-expanded="false" aria-controls="<?php echo $tag; ?>">
                                 <?php echo cut_menu_name($menuARR[0]); ?>
                             </button>
                             <div class="collapse pt-0" id="<?php echo $tag; ?>">
@@ -137,7 +138,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                     if(isset($_POST[$tag.'_submit'])){
                                         if($_POST[$tag.'_name'] != ""){
                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                            change_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name']);
+                                            change_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name'],$_POST[$tag.'_addcap']);
                                         }
                                     }
                                     ?>
@@ -154,32 +155,50 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                             <span class="input-group-text" style="max-width:12em; min-width:12em;">Required Capability</span>
                                             <input type="text" class="form-control" disabled value="<?php echo $menuARR[1]?>" style="min-width:23em;">
                                         </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
-                                            <select name="<?php echo $tag; ?>_addcap" class="form-select" aria-label="Default select example">
-                                                <option selected>Keine Auswahl</option>
-                                                <?php
-                                                foreach (array_keys($roles['administrator']['capabilities']) as $capability){
-                                                    ?>
-                                                    <option value="<?php echo $capability; ?>"><?php echo $capability; ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="row">
-                                        <?php
 
-                                        ?>
-                                        </div>
                                         <?php
+                                        if(strcmp($menuARR[2],"index.php")!=0){
+                                            ?>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
+                                                <select name="<?php echo $tag; ?>_addcap" class="form-select" aria-label="Default select example">
+                                                    <option selected value="<?php $tmp=current_capability($menuARR[2],cut_menu_name($menuARR[0])); echo $tmp;?>"><?php echo $tmp; ?></option>
+                                                    <?php
+                                                    if(strcmp($tmp,"nicht ausgewaehlt")!=0){
+                                                        ?>
+                                                        <option value="<?php echo "nicht_ausgewaehlt"; ?>"><?php echo "nicht ausgewaehlt"; ?></option>
+                                                        <?php
+                                                    }
+                                                    foreach (array_keys($roles['administrator']['capabilities']) as $capability){
+                                                        if(strcmp($capability,$menuARR[1])!=0 && strcmp($capability,$tmp)!=0){
+                                                            ?>
+                                                            <option value="<?php echo $capability; ?>"><?php echo $capability; ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <?php
+                                        }
                                         if(is_function_activated('custom_menus')) {
                                         ?>
-                                        <div class="py-3 pb-3">
+                                        <div class="py-3">
                                             <button name="<?php echo $tag; ?>_submit" class="btn btn-secondary" type="submit">Bestätige</button>
+                                            <form method="post" action="#
+                                            <?php
+                                            if(isset($_POST[$tag.'_reset'])){
+                                                $org_menu = get_orig_name(cut_menu_name($submenuARR[0]),$submenuARR[2]);
+                                                delete_from_database_MULT('super_menus',array('slug'=>$menuARR[2],'old_name'=>$org_menu));
+                                            }
+                                            ?>">
+                                                <button name="<?php echo $tag; ?>_reset" class="btn btn-secondary" type="submit">Zurücksetzen</button>
+                                            </form>
                                         </div>
-                                        <?php } ?>
-                                </form>
+                                        <?php
+                                        }
+                                        ?>
+                                    </form>
                                 <?php
                                 $index++;
                                 if(isset($submenu[$menuARR[2]])){
@@ -197,7 +216,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                     if(isset($_POST[$tag.'_submit'])){
                                                         if($_POST[$tag.'_name'] != ""){
                                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                                            change_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name']);
+                                                            change_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name'],$_POST[$tag.'_addcap']);
                                                         }
                                                     }
                                                     ?>
@@ -215,29 +234,43 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                             <input type="text" class="form-control" disabled value="<?php echo $submenuARR[1]?>" style="min-width:23em;">
                                                         </div>
                                                         <?php
-                                                        if(strcmp($submenuARR[2],"super_impress")!=0){
+                                                        if(strcmp($submenuARR[2],"index.php")!=0){
                                                             ?>
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
                                                                 <select name="<?php echo $tag; ?>_addcap" class="form-select" aria-label="Default select example">
-                                                                    <option selected>Keine Auswahl</option>
+                                                                    <option selected value="<?php $tmp=current_capability($submenuARR[2],cut_menu_name($submenuARR[0])); echo $tmp;?>"><?php echo $tmp; ?></option>
                                                                     <?php
-                                                                    foreach (array_keys($roles['administrator']['capabilities']) as $capability){
+                                                                    if(strcmp($tmp,"nicht ausgewaehlt")!=0){
                                                                         ?>
-                                                                        <option value="<?php echo $capability; ?>"><?php echo $capability; ?></option>
+                                                                        <option value="<?php echo "nicht_ausgewaehlt"; ?>"><?php echo "nicht ausgewaehlt"; ?></option>
                                                                         <?php
+                                                                    }
+                                                                    foreach (array_keys($roles['administrator']['capabilities']) as $capability){
+                                                                        if(strcmp($capability,$submenuARR[1])!=0 && strcmp($capability,$tmp)!=0){
+                                                                            ?>
+                                                                            <option value="<?php echo $capability; ?>"><?php echo $capability; ?></option>
+                                                                            <?php
+                                                                        }
                                                                     }
                                                                     ?>
                                                                 </select>
                                                             </div>
                                                             <?php
                                                         }
-                                                        ?>
-                                                        <?php
                                                         if(is_function_activated('custom_menus')) {
                                                             ?>
                                                             <div class="py-3">
                                                                 <button name="<?php echo $tag; ?>_submit" class="btn btn-secondary" type="submit">Bestätige</button>
+                                                                <form method="post" action="#
+                                                                <?php
+                                                                if(isset($_POST[$tag.'_reset'])){
+                                                                    $org_menu = get_orig_name(cut_menu_name($submenuARR[0]),$submenuARR[2]);
+                                                                    delete_from_database_MULT('super_menus',array('slug'=>$menuARR[2],'old_name'=>$org_menu));
+                                                                }
+                                                                ?>">
+                                                                    <button name="<?php echo $tag; ?>_reset" class="btn btn-secondary" type="submit">Zurücksetzen</button>
+                                                                </form>
                                                             </div>
                                                         <?php } ?>
                                                     </form>
@@ -256,6 +289,14 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                 }
             }
             ?>
+            <form class="py-3 px-2" method="post" action="
+            <?php
+            if(isset($_POST['total_reset'])){
+                truncate_table('super_menus');
+            }
+            ?>">
+                <button name="total_reset" class="btn btn-secondary" type="submit">Alles Zurücksetzen</button>
+            </form>
         </div>
     </div>
 </div>
