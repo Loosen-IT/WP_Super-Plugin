@@ -136,7 +136,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                     <form method="post" action="
                                     <?php
                                     if(isset($_POST[$tag.'_submit'])){
-                                        if($_POST[$tag.'_name'] != ""){
+                                        if(strcmp($_POST[$tag.'_name'],"")!=0 && strcmp(cut_menu_name($menuARR[0]),"Super-Plugin")!=0){
                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
                                             change_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name'],$_POST[$tag.'_addcap']);
                                         }
@@ -145,7 +145,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                     ">
                                         <div class="input-group mb-3 pt-3">
                                             <span class="input-group-text" id="<?php echo $tag; ?>_name" style="max-width:6em; min-width:7em;">Menü-Titel</span>
-                                            <input type="text" name="<?php echo $tag; ?>_name" class="form-control" value="<?php echo cut_menu_name($menuARR[0]); ?>" aria-describedby="name" style="min-width:23em;">
+                                            <input type="text" name="<?php echo $tag; ?>_name" class="form-control" <?php if(strcmp(cut_menu_name($menuARR[0]),"Super-Plugin")==0) echo 'disabled';?> value="<?php echo cut_menu_name($menuARR[0]); ?>" aria-describedby="name" style="min-width:23em;">
                                         </div>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" style="max-width:6em; min-width:7em;">Menü-Url</span>
@@ -214,7 +214,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                     <form method="post" action="
                                                 <?php
                                                     if(isset($_POST[$tag.'_submit'])){
-                                                        if($_POST[$tag.'_name'] != ""){
+                                                        if(strcmp($_POST[$tag.'_name'],"")!=0){
                                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
                                                             change_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name'],$_POST[$tag.'_addcap']);
                                                         }
@@ -234,7 +234,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                             <input type="text" class="form-control" disabled value="<?php echo $submenuARR[1]?>" style="min-width:23em;">
                                                         </div>
                                                         <?php
-                                                        if(strcmp($submenuARR[2],"index.php")!=0){
+                                                        if(strcmp($submenuARR[2],"index.php") !=0 && strcmp($submenuARR[2],"super_impress")!=0){
                                                             ?>
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
@@ -288,15 +288,19 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                 <?php
                 }
             }
-            ?>
-            <form class="py-3 px-2" method="post" action="
-            <?php
-            if(isset($_POST['total_reset'])){
-                truncate_table('super_menus');
+            if(is_function_activated('custom_menus')){
+                ?>
+                <form class="py-3 px-2" method="post" action="
+                <?php
+                if(isset($_POST['total_reset'])){
+                    truncate_table('super_menus');
+                }
+                ?>">
+                    <button name="total_reset" class="btn btn-secondary" type="submit">Alles Zurücksetzen</button>
+                </form>
+                <?php
             }
-            ?>">
-                <button name="total_reset" class="btn btn-secondary" type="submit">Alles Zurücksetzen</button>
-            </form>
+            ?>
         </div>
     </div>
 </div>
