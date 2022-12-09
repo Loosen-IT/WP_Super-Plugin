@@ -116,6 +116,6 @@ function check_requirements($version)
     }
     //Checks existence of menu-table (old and new names) and creates if not
     if ($wpdb->get_var("SHOW TABLES LIKE " . add_prefix('super_menus')) != add_prefix('super_menus')) {
-        dbDelta("CREATE TABLE " . add_prefix('super_menus') . "(slug VARCHAR(128),old_name VARCHAR(128),new_name VARCHAR(128),capability VARCHAR(128) DEFAULT 'nicht_ausgewaehlt',PRIMARY KEY(old_name,slug))");
+        dbDelta("CREATE TABLE " . add_prefix('super_menus') . "(slug VARCHAR(128),old_name VARCHAR(128),new_name VARCHAR(128),capability VARCHAR(128),PRIMARY KEY(old_name,slug))");
     }
 }

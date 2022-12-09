@@ -127,7 +127,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                     if($menuARR[0]!=""){
                         $tag = "menu".$index;
                         ?>
-                        <div class="container d-grid pb-3 px-2">
+                        <div class="container d-grid pb-3 pt-1 px-2">
                             <button class="btn d-flex btn-secondary rounded-0 rounded-top" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $tag; ?>" aria-expanded="false" aria-controls="<?php echo $tag; ?>">
                                 <?php echo cut_menu_name($menuARR[0]); ?>
                             </button>
@@ -138,7 +138,9 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                     if(isset($_POST[$tag.'_submit'])){
                                         if(strcmp($_POST[$tag.'_name'],"")!=0 && strcmp(cut_menu_name($menuARR[0]),"Super-Plugin")!=0){
                                             require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                            change_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name'],$_POST[$tag.'_addcap']);
+                                            $cap = "";
+                                            if(strcmp($menuARR[2],"index.php")!=0) $cap=$_POST[$tag.'_addcap']; else $cap="nicht_ausgewaehlt";
+                                            change_menu($menuARR[2],cut_menu_name($menuARR[0]),$_POST[$tag.'_name'],$cap);
                                         }
                                     }
                                     ?>
@@ -212,15 +214,17 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                             <div class="collapse pt-0" id="<?php echo $tag; ?>">
                                                 <div class="container-fluid bordered rounded-0" style="background-color:#ffffff;border: solid #6C757D;border-width:1px;">
                                                     <form method="post" action="
-                                                <?php
-                                                    if(isset($_POST[$tag.'_submit'])){
-                                                        if(strcmp($_POST[$tag.'_name'],"")!=0){
-                                                            require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
-                                                            change_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name'],$_POST[$tag.'_addcap']);
+                                                    <?php
+                                                        if(isset($_POST[$tag.'_submit'])){
+                                                            if(strcmp($_POST[$tag.'_name'],"")!=0){
+                                                                require_once(plugin_dir_path(__DIR__).'/functions/func_menu.php');
+                                                                $cap = "";
+                                                                if(strcmp($submenuARR[2],"index.php")!=0 && strcmp($submenuARR[2],"super_impress")!=0) $cap=$_POST[$tag.'_addcap']; else $cap="nicht_ausgewaehlt";
+                                                                change_menu($submenuARR[2],cut_menu_name($submenuARR[0]),$_POST[$tag.'_name'],$cap);
+                                                            }
                                                         }
-                                                    }
-                                                    ?>
-                                                ">
+                                                     ?>
+                                                    ">
                                                         <div class="input-group mb-3 pt-3">
                                                             <span class="input-group-text" id="<?php echo $tag; ?>_name" style="max-width:6em; min-width:7em;">Menü-Titel</span>
                                                             <input type="text" name="<?php echo $tag; ?>_name" class="form-control" value="<?php echo cut_menu_name($submenuARR[0]); ?>" aria-describedby="name" style="min-width:23em;">
