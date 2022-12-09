@@ -185,10 +185,10 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                         ?>
                                         <div class="py-3">
                                             <button name="<?php echo $tag; ?>_submit" class="btn btn-secondary" type="submit">Bestätige</button>
-                                            <form method="post" action="#
+                                            <form method="post" action="
                                             <?php
                                             if(isset($_POST[$tag.'_reset'])){
-                                                $org_menu = get_orig_name(cut_menu_name($submenuARR[0]),$submenuARR[2]);
+                                                $org_menu = get_orig_name(cut_menu_name($menuARR[0]),$menuARR[2]);
                                                 delete_from_database_MULT('super_menus',array('slug'=>$menuARR[2],'old_name'=>$org_menu));
                                             }
                                             ?>">
@@ -262,11 +262,11 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                             ?>
                                                             <div class="py-3">
                                                                 <button name="<?php echo $tag; ?>_submit" class="btn btn-secondary" type="submit">Bestätige</button>
-                                                                <form method="post" action="#
+                                                                <form method="post" action="
                                                                 <?php
                                                                 if(isset($_POST[$tag.'_reset'])){
                                                                     $org_menu = get_orig_name(cut_menu_name($submenuARR[0]),$submenuARR[2]);
-                                                                    delete_from_database_MULT('super_menus',array('slug'=>$menuARR[2],'old_name'=>$org_menu));
+                                                                    delete_from_database_MULT('super_menus',array('slug'=>$submenuARR[2],'old_name'=>$org_menu));
                                                                 }
                                                                 ?>">
                                                                     <button name="<?php echo $tag; ?>_reset" class="btn btn-secondary" type="submit">Zurücksetzen</button>

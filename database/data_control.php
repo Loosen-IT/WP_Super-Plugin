@@ -86,7 +86,7 @@ function delete_from_database($table, $where, $is){
 //SQL-Delete for WP-Database with multiple arguments
 function delete_from_database_MULT($table, $whereAndIs){
     global $wpdb;
-    $wpdb -> $wpdb->delete( add_prefix($table), $whereAndIs);
+    $wpdb -> delete(add_prefix($table), $whereAndIs);
 }
 
 //Checks the current plugin-version and update/create tables if needed
