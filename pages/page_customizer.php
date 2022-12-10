@@ -69,7 +69,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                         <div class="col-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" style="min-width:15em;max-width:15em;">
-                                    <span class="input-group-text" id="basic-addon1">Sitebar-Text</span>
+                                    <span class="input-group-text " id="basic-addon1">Sitebar-Text</span>
                                 </div>
                                 <input type="color" class="form-control form-control-color" name="color_text" value="<?php echo get_database_value('super_colors','color_text'); ?>" title="Choose your color">
                             </div>
@@ -159,7 +159,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                         </div>
 
                                         <?php
-                                        if(strcmp($menuARR[2],"index.php")!=0){
+                                        if(strcmp($menuARR[2],"index.php")!=0 && strcmp($menuARR[0],"Super-Plugin")!=0){
                                             ?>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" style="max-width:12em; min-width:12em;">Additional Capability</span>
