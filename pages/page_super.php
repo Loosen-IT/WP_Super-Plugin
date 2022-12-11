@@ -2,6 +2,9 @@
 require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
 ?>
 <link href="<?php echo plugin_dir_url(__DIR__).'/pages/styles/bootstrap.css'; ?>" rel="stylesheet">
+<style type="text/css">
+    body { background: <?php echo get_database_value('super_colors', 'color_back'); ?> !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
 <div class="container-fluent pt-3 pe-3">
     <div class="row px-2">
         <div class="col">
