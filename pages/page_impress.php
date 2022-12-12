@@ -31,7 +31,7 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
                 <div class="card-body">
                     <h5 class="card-title">Lizenzurheber</h5>
                     <label>
-                        <a href="https://loosen-it.de">Loosen-IT</a><br>
+                        <a target="_blank" href="https://loosen-it.de">Loosen-IT</a><br>
                         Jan-Niclas Loosen <br>
                         Weingartenstraße 34 <br>
                         56854 Ernst <br>
@@ -41,14 +41,14 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         </div>
         <div class="col-4">
             <div class="card">
-                <img src="<?php echo plugin_dir_url(__DIR__).'/pages/source/feldmann.png'; ?>" class="rounded mx-auto d-block card-img-top">
+                <img src="<?php echo plugin_dir_url(__DIR__).'/pages/source/designraketen.png'; ?>" class="rounded mx-auto d-block card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Lizenzinhaber</h5>
                     <label>
-                        <a href="https://feldmannservices.de/">FeldmannServices e.K.</a><br>
+                        <a target="_blank" href="https://designraketen.de/">Designraketen GmbH</a><br>
                         Dennis Feldmann <br>
-                        Schüllerplatz 1 <br>
-                        56070 Koblenz <br>
+                        Beatusstraße 54 <br>
+                        56073 Koblenz <br>
                     </label>
                 </div>
             </div>

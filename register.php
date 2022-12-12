@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Super-Plugin
  * Description: Das Multi-Tool für Wordpress.
- * Version: 1.0
+ * Version: 1.1
  * Requires PHP: 7.2, MySQL or MariaDB Database for Wordpress
  * Author: Jan-Niclas Loosen
  * Author URI: https://loosen-it.de
@@ -12,7 +12,7 @@
 
 //Registration of new menus
 function super_register(){
-    $version='0.1';
+    $version='1.0';
     require_once(plugin_dir_path(__FILE__).'database/data_control.php');
     check_requirements($version);
 

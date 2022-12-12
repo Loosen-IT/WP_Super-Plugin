@@ -199,7 +199,7 @@ add_action( 'admin_menu', 'override_menu_defaults', 999);
 function recreate_footer(){
     global $submenu;
     $url = get_menu_url($submenu['super_plugin'][sizeof($submenu['super_plugin'])-1]);
-    $footer_text = 'Individualisiert durch das <a href="'.$url.'">Super-Plugin</a> |'.'&nbsp'.'<a href="https://feldmannservices.de/" target="_blank">FeldmannServices e.K.</a>';
+    $footer_text = 'Individualisiert durch das <a href="'.$url.'">Super-Plugin</a> |'.'&nbsp'.'<a href="https://designraketen.de/" target="_blank">Designraketen GmbH</a>';
     return $footer_text;
 }
 add_filter('admin_footer_text','recreate_footer');
