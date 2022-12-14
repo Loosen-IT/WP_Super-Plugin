@@ -3,6 +3,7 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
 require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
 ?>
 <link href="<?php echo plugin_dir_url(__DIR__).'/pages/styles/bootstrap.css'; ?>" rel="stylesheet">
+<link href="<?php echo plugin_dir_url(__DIR__).'/pages/styles/custom.css'; ?>" rel="stylesheet">
 <script src="<?php echo plugin_dir_url(__DIR__).'/pages/styles/bootstrap.bundle.js'; ?>" crossorigin="anonymous"></script>
 <style type="text/css">
     body { background: <?php echo get_database_value('super_colors', 'color_back'); ?> !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
@@ -117,7 +118,7 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
 
     <div class="row p-2 pb-3 pe-4">
         <div class="col">
-            <div class="container-fluid bg-light border">
+            <div class="container-fluid bg-light border rounded">
                 <div class="container-fluid pb-3 p-0">
                     <h5 class="pt-2">Menümanager <?php if(!is_function_activated('custom_menus')){ echo '[DEAKTIVIERT]'; } ?></h5>
                     <span>Verwalte hier die Menüs und Submenüs, ändere ihre Namen und setze neue Capabilities.</span>
