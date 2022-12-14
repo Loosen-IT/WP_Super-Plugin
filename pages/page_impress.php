@@ -57,15 +57,8 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         Wordpress ist eine komplexe Anwendung, welche regelmäßig aktualisiert und in der Regel durch weitere Plugins ergänzt wird.
         Dadurch können, auch wenn der Lizenzurheber um eine Vermeidung bemüht ist, Inkompatibilitäten und Fehler nicht ausgeschlossen werden.
         Sowohl Lizenzurheber, als auch Lizenzinhaber, haften nicht für Schäden, insbesondere nicht für unmittelbare oder mittelbare Folgeschäden,
-        Datenverlust, entgangenen Gewinn, System- oder Produktionsausfälle, die durch die Nutzung des Super-Plugins entstehen. Liegt bei einem entstandenen
-        Schaden durch die Nutzung des Super-Plugins Vorsatz oder grobe Fahrlässigkeit vor, gilt der Haftungsausschluss nicht.
-        Dieser Sachverhalt wird auch in den Lizenzverträgen klar kommuniziert.
-    </label>
-    <label class="pb-2 pe-2">
-        Desweiteren stellt das Super-Plugin Sicherheitsfunktionen zur Verfügung. Diese bieten aber keinen allumfassenden Schutz.
-        Wordpress beinhaltet weiterhin potentielle Angriffsflächen, welche nicht durch dieses Plugin gesichert werden.
-        Auch hier ist, wie im letzten Absatz bereits beschrieben, keine Funktionalitätsgarantie gegeben. Dieser Sachverhalt wird in den
-        entsprechenden Menüs nocheinmal hervorgehoben.
+        Datenverlust, entgangenen Gewinn, System- oder Produktionsausfälle, die durch die Nutzung des Super-Plugins entstehen. Liegt bei einem
+        durch das Super-Plugin entstandenen Schaden Vorsatz oder grobe Fahrlässigkeit vor, gilt der Haftungsausschluss nicht.
     </label>
 <?php
 if(is_function_activated('custom_colors')){ wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css'); }
