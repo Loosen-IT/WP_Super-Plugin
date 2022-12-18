@@ -7,15 +7,15 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     body { background: <?php echo get_database_value('super_colors', 'color_back'); ?> !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
 </style>
 <div class="container-fluent pt-3 pe-3">
-    <h5>Lizensierung</h5>
-    <label class="pb-2 pe-2">
-        Das Super-Plugin und der dazugehörgige Quellcode ist, auch wenn es keine Verifizierung gibt, ein Lizenzprodukt und das geistige Eigentum von Loosen-IT (i.f. Lizenzurheber).
+    <h5 class="px-2">Lizensierung</h5>
+    <label class="pb-2 px-2">
+        Das Super-Plugin und der dazugehörgige Quellcode ist, auch wenn es keine Verifizierung gibt, ein Lizenzprodukt von Loosen-IT (i.f. Lizenzurheber).
         Der Lizenzurheber räumt sich das Recht ein, dass die gewerbliche Nutzung und Verbreitung des Quellcodes ausschließlich Loosen-IT selbst und
         Lizenzinhabern vorbehalten ist. Die gewerbliche Nutzung beinhaltet die Vermarktung und Nutzung des Plugins in jeglichen betrieblichen Arbeitsprozessen.
         Die Verbreitung des Quellcodes beginnt bereits mit dem Kopieren des Codes auf einen beliebigen digitalen oder analogen Datenträger.
     </label>
     <br>
-    <label class="pb-2 pe-2">
+    <label class="pb-2 px-2">
         Das Super-Plugin ist ein hoch-individualisiertes Produkt und ist in enger Zusammenarbeit mit dem unten aufgelisteten Lizenzinhaber entstanden.
         Das Lizenzprodukt ist eine Anwendungs-Erweiterung: Der Wordpress-Quellcode bleibt unverändert und ist kein Teil der Lizenz. Nutzungs- und Vermarktungslizenzen können bei dem
         unten aufgelisteten Lizenzurheber oder dem Lizenzinhaber erworben werden.
@@ -52,8 +52,8 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         </div>
         <div class="col-2"></div>
     </div>
-    <h5>Haftungsausschluss</h5>
-    <label class="pb-2 pe-2">
+    <h5 class="px-2">Haftungsausschluss</h5>
+    <label class="pb-2 px-2 pe-2">
         Wordpress ist eine komplexe Anwendung, welche regelmäßig aktualisiert und in der Regel durch weitere Plugins ergänzt wird.
         Dadurch können, auch wenn der Lizenzurheber um eine Vermeidung bemüht ist, Inkompatibilitäten und Fehler nicht ausgeschlossen werden.
         Sowohl Lizenzurheber, als auch Lizenzinhaber, haften nicht für Schäden, insbesondere nicht für unmittelbare oder mittelbare Folgeschäden,
