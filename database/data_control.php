@@ -92,15 +92,15 @@ function delete_from_database_MULT($table, $whereAndIs){
 //Checks the current plugin-version and update/create tables if needed
 function check_requirements($version)
 {
-    /*
     global $wpdb;
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     $main_scheme = "CREATE TABLE " . add_prefix('super_main') . "(version VARCHAR(20),dummy_bool boolean DEFAULT true,debug_mode boolean DEFAULT false,quick_copy_pages boolean DEFAULT false,quick_copy_posts boolean DEFAULT false,custom_colors boolean DEFAULT false,custom_menus boolean DEFAULT false, PRIMARY KEY(version))";
+
     //Checks existence of main-table (lists functions of super-plugin) and creates if not
-    if ($wpdb->get_var("SHOW TABLES LIKE " . add_prefix('super_main')) != add_prefix('super_main')) {
-        dbDelta($main_scheme);
-        insert_into_database('super_main', 'version', $version);
+    if (maybe_create_table( add_prefix('super_main'), $main_scheme)) {
+        insert_into_database('super_main', 'dummy_bool', true);
     }
+    
     //Checks the current version of main-table and updates if not
     if (get_database_value('super_menu', 'version') != $version) {
         $values = ($wpdb->get_results("SELECT * FROM " . add_prefix('super_main'), ARRAY_A))[0];
@@ -111,13 +111,10 @@ function check_requirements($version)
         $wpdb->insert(add_prefix('super_main'), $values);
     }
     //Checks existence of color-table (for color-customizer) and creates if not
-    if ($wpdb->get_var("SHOW TABLES LIKE " . add_prefix('super_colors')) != add_prefix('super_colors')) {
-        dbDelta("CREATE TABLE " . add_prefix('super_colors') . "(dummy_bool boolean DEFAULT true,color_base VARCHAR(7) DEFAULT '#1d1f3d',color_text VARCHAR(7) DEFAULT '#ffffff',color_high VARCHAR(7) DEFAULT '#cd1719',color_subh VARCHAR(7) DEFAULT '#282a7b',color_note VARCHAR(7) DEFAULT '#ae0f0a',color_link VARCHAR(7) DEFAULT '#282a7b',color_form VARCHAR(7) DEFAULT '#1d1f3d',color_back VARCHAR(7) DEFAULT '#ffffff',PRIMARY KEY(dummy_bool))");
+    if (maybe_create_table( add_prefix('super_colors'), "CREATE TABLE " . add_prefix('super_colors') . "(dummy_bool boolean DEFAULT true,color_base VARCHAR(7) DEFAULT '#1d1f3d',color_text VARCHAR(7) DEFAULT '#ffffff',color_high VARCHAR(7) DEFAULT '#cd1719',color_subh VARCHAR(7) DEFAULT '#282a7b',color_note VARCHAR(7) DEFAULT '#ae0f0a',color_link VARCHAR(7) DEFAULT '#282a7b',color_form VARCHAR(7) DEFAULT '#1d1f3d',color_back VARCHAR(7) DEFAULT '#ffffff',PRIMARY KEY(dummy_bool))")) {
         insert_into_database('super_colors', 'dummy_bool', true);
     }
+
     //Checks existence of menu-table (old and new names) and creates if not
-    if ($wpdb->get_var("SHOW TABLES LIKE " . add_prefix('super_menus')) != add_prefix('super_menus')) {
-        dbDelta("CREATE TABLE " . add_prefix('super_menus') . "(slug VARCHAR(128),old_name VARCHAR(128),new_name VARCHAR(128),capability VARCHAR(128),PRIMARY KEY(old_name,slug))");
-    }
-    */
+    maybe_create_table( add_prefix('super_menus'), "CREATE TABLE " . add_prefix('super_menus') . "(slug VARCHAR(128),old_name VARCHAR(128),new_name VARCHAR(128),capability VARCHAR(128),PRIMARY KEY(old_name,slug))");
 }
