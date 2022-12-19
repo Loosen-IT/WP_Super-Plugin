@@ -112,7 +112,7 @@ function check_requirements($version)
     }
     //Checks existence of color-table (for color-customizer) and creates if not
     if (maybe_create_table( add_prefix('super_colors'), "CREATE TABLE " . add_prefix('super_colors') . "(dummy_bool boolean DEFAULT true,color_base VARCHAR(7) DEFAULT '#1d1f3d',color_text VARCHAR(7) DEFAULT '#ffffff',color_high VARCHAR(7) DEFAULT '#cd1719',color_subh VARCHAR(7) DEFAULT '#282a7b',color_note VARCHAR(7) DEFAULT '#ae0f0a',color_link VARCHAR(7) DEFAULT '#282a7b',color_form VARCHAR(7) DEFAULT '#1d1f3d',color_back VARCHAR(7) DEFAULT '#ffffff',PRIMARY KEY(dummy_bool))")) {
-        if(!is_null(get_database_value('super_colors','dummy_bool'))){
+        if(is_null(get_database_value('super_colors','dummy_bool'))){
             insert_into_database('super_colors', 'dummy_bool', true);
         }
     }
