@@ -27,11 +27,12 @@ function get_the_user_ip() {
 }
 add_shortcode('display-ip', 'get_the_user_ip');
 
-
+/*
 function get_access_file(){
     $path = ABSPATH;
     if(file_exists($path.'/.htaccess')){ return $path.'.htaccess'; };
 }
 add_shortcode('display-file', 'get_access_file');
+*/
 
 ?>
