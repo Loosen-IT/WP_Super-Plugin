@@ -25,6 +25,13 @@ function get_the_user_ip() {
     return apply_filters( 'wpb_get_ip', $ip );
 
 }
-
 add_shortcode('display-ip', 'get_the_user_ip');
+
+
+function get_access_file(){
+    $path = ABSPATH;
+    if(file_exists($path.'/.htaccess')){ return $path.'.htaccess'; };
+}
+add_shortcode('display-file', 'get_access_file');
+
 ?>

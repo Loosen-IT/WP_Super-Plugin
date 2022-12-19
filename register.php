@@ -1,12 +1,11 @@
 <?php
 /**
  * Plugin Name: Super-Plugin
- * Description: Das Multi-Tool für Wordpress.
- * Version: 1.1
+ * Description: Ein Super-Held für deine Wordpress-Website.
+ * Version: 1.0
  * Requires PHP: 7.2, MySQL or MariaDB Database for Wordpress
- * Author: Loosen-IT
+ * Author: Loosen-IT (Jan-Niclas Loosen)
  * Author URI: https://loosen-it.de
- * License: personal licence
  * Text Domain: Super-Plugin
  **/
 
