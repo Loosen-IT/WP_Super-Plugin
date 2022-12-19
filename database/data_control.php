@@ -100,9 +100,9 @@ function check_requirements($version)
     if (maybe_create_table( add_prefix('super_main'), $main_scheme)) {
         insert_into_database('super_main', 'dummy_bool', true);
     }
-    
+
     //Checks the current version of main-table and updates if not
-    if (get_database_value('super_menu', 'version') != $version) {
+    if (get_database_value('super_main', 'version') != $version) {
         $values = ($wpdb->get_results("SELECT * FROM " . add_prefix('super_main'), ARRAY_A))[0];
         $wpdb->flush();
         $wpdb->query("DROP TABLE " . add_prefix('super_main'));
