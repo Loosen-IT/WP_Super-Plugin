@@ -92,6 +92,7 @@ function delete_from_database_MULT($table, $whereAndIs){
 //Checks the current plugin-version and update/create tables if needed
 function check_requirements($version)
 {
+    /*
     global $wpdb;
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     $main_scheme = "CREATE TABLE " . add_prefix('super_main') . "(version VARCHAR(20),dummy_bool boolean DEFAULT true,debug_mode boolean DEFAULT false,quick_copy_pages boolean DEFAULT false,quick_copy_posts boolean DEFAULT false,custom_colors boolean DEFAULT false,custom_menus boolean DEFAULT false, PRIMARY KEY(version))";
@@ -118,4 +119,5 @@ function check_requirements($version)
     if ($wpdb->get_var("SHOW TABLES LIKE " . add_prefix('super_menus')) != add_prefix('super_menus')) {
         dbDelta("CREATE TABLE " . add_prefix('super_menus') . "(slug VARCHAR(128),old_name VARCHAR(128),new_name VARCHAR(128),capability VARCHAR(128),PRIMARY KEY(old_name,slug))");
     }
+    */
 }
