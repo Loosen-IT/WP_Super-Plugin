@@ -98,7 +98,9 @@ function check_requirements($version)
 
     //Checks existence of main-table (lists functions of super-plugin) and creates if not
     if (maybe_create_table( add_prefix('super_main'), $main_scheme)) {
-        insert_into_database('super_main', 'dummy_bool', true);
+        if(is_null(get_database_value('super_main','dummy_bool'))){
+            insert_into_database('super_main', 'dummy_bool', true);
+        }
     }
 
     /*
