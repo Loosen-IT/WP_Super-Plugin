@@ -124,7 +124,9 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                     <span>Verwalte hier die Menüs und Submenüs, ändere ihre Namen und setze neue Capabilities.</span>
                 </div>
                 <?php
-                global $menu, $submenu, $wp_roles;
+                global $wp_roles;
+                $menu = SUPER_MENU_BUFFER;
+                $submenu = SUPER_SUBMENU_BUFFER;
                 $roles = $wp_roles->roles;
                 $index = 0;
                 $counter = 0;
@@ -266,7 +268,6 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                                         <?php
                                                                     }
                                                                     ?>
-                                                                    <option value="<?php echo "versteckt"; ?>"><?php echo "versteckt"; ?></option>
                                                                     <?php
                                                                     foreach (array_keys($roles['administrator']['capabilities']) as $capability){
                                                                         if(strcmp($capability,$submenuARR[1])!=0 && strcmp($capability,$tmp)!=0){

@@ -7,7 +7,9 @@ function cut_menu_name($name){
 
 //Finds Url of a WP-Admin menu
 function get_admin_menu_item_url( $menu_item_file, $submenu_as_parent = true ) {
-    global $menu, $submenu, $self, $parent_file, $submenu_file, $plugin_page, $typenow;
+    global $self, $parent_file, $submenu_file, $plugin_page, $typenow;
+    $menu = SUPER_MENU_BUFFER;
+    $submenu = SUPER_SUBMENU_BUFFER;
     $admin_is_parent = false;
     $item = '';
     $submenu_item = '';
@@ -155,7 +157,7 @@ function override_menu_defaults(){
                 $menu[$index][0]=$override;
             }
 
-            $menu_buffer = array_merge($menu,$menu_buffer);
+            $menu_buffer[] = $menu[$index];
 
             if(!is_null($capability)){
                 if(strcmp($capability,"nicht_ausgewaehlt")!=0 && !current_user_can($capability)){
@@ -164,6 +166,7 @@ function override_menu_defaults(){
             }
 
             if(isset($submenu[$menuarr[2]])){
+                $submenuarr_buffer = array();
                 foreach($submenu[$menuarr[2]] as $subarr){
                     $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
                     $capability=get_database_value_MULT('super_menus', 'capability', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
@@ -174,17 +177,20 @@ function override_menu_defaults(){
                         $submenu[$menuarr[2]][$index][0]=$override;
                     }
 
+                    $submenuarr_buffer[] = $submenu[$menuarr[2]][$index];
+
                     if(!is_null($capability)){
                         if(strcmp($capability,"nicht_ausgewaehlt")!=0 && !current_user_can($capability)){
                             remove_submenu_page($menuarr[2],$subarr[2]);
                         }
                     }
                 }
+                $submenu_buffer[$menuarr[2]]=$submenuarr_buffer;
             }
-
-            define('SUPER_MENU_BUFFER',$menu_buffer);
         }
     }
+    define('SUPER_MENU_BUFFER',$menu_buffer);
+    define('SUPER_SUBMENU_BUFFER',$submenu_buffer);
 }
 add_action( 'admin_menu', 'override_menu_defaults', 999);
 
