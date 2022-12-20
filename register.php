@@ -21,7 +21,7 @@ function super_register(){
     add_submenu_page('super_plugin','Individualisierung', 'Individualisierung', 'edit_plugins', 'super_customizer', 'super_customizer');
     add_submenu_page('super_plugin','Sicherheit', 'Sicherheit', 'edit_plugins', 'super_security', 'super_security');
     add_submenu_page('super_plugin','Shortcuts', 'Shortcuts', 'edit_plugins', 'super_shortcuts', 'super_shortcuts');
-    add_submenu_page('super_plugin','Information', 'Lizensierung und Haftungsausschluss', 'read', 'super_impress', 'super_impress', 10);
+    add_submenu_page('super_plugin','Information', 'Lizensierung', 'read', 'super_impress', 'super_impress', 10);
 
 }
 add_action('admin_menu','super_register');
@@ -38,5 +38,6 @@ include(plugin_dir_path(__FILE__).'functions/func_copy.php');
 include(plugin_dir_path(__FILE__).'functions/func_color.php');
 include(plugin_dir_path(__FILE__).'functions/func_menu.php');
 include(plugin_dir_path(__FILE__).'functions/func_secure.php');
+include(plugin_dir_path(__FILE__).'functions/func_logo.php');
 
 

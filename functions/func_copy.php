@@ -3,7 +3,7 @@
 function duplicate_post_link( $actions, $post ) {
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     if (current_user_can('edit_posts') and is_function_activated('quick_copy_posts')) {
-        $actions['duplicate'] = '<a href="' . wp_nonce_url('admin.php?action=rd_duplicate_post_as_draft&post=' . $post->ID, basename(__FILE__), 'duplicate_nonce' ) . '" title="Duplicate this item" rel="permalink">Kopieren</a>';
+        $actions['duplicate'] = '<a href="' . wp_nonce_url('admin.php?action=rd_duplicate_post_as_draft&post=' . $post->ID, basename(__FILE__), 'duplicate_nonce' ) . '" title="Duplicate this item" rel="permalink">Beitrag duplizieren</a>';
     }
     return $actions;
 }
@@ -13,7 +13,7 @@ add_filter('post_row_actions', 'duplicate_post_link', 10, 2);
 function duplicate_page_link( $actions, $post ) {
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     if (current_user_can('edit_posts') and is_function_activated('quick_copy_pages')) {
-        $actions['duplicate'] = '<a href="' . wp_nonce_url('admin.php?action=rd_duplicate_post_as_draft&post=' . $post->ID, basename(__FILE__), 'duplicate_nonce' ) . '" title="Duplicate this item" rel="permalink">Kopieren</a>';
+        $actions['duplicate'] = '<a href="' . wp_nonce_url('admin.php?action=rd_duplicate_post_as_draft&post=' . $post->ID, basename(__FILE__), 'duplicate_nonce' ) . '" title="Duplicate this item" rel="permalink">Seite duplizieren</a>';
     }
     return $actions;
 }

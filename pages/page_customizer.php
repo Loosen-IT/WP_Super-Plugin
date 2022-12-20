@@ -18,8 +18,8 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
     <div class="row p-2 pb-3 pe-4">
         <div class="col">
             <div class="container-fluid bg-light rounded border">
-                <h5 class="pt-2">Farbanpassung <?php if(!is_function_activated('custom_colors')){ echo '[DEAKTIVIERT]'; } ?></h5>
-                <span>Kopiere Pages und Posts schnell und einfach in der Tabellenübersicht.</span>
+                <h5 class="pt-2">Farbanpassung und Raketenicon <?php if(!is_function_activated('custom_colors')){ echo '[DEAKTIVIERT]'; } ?></h5>
+                <span>Hier können die Farben von WP-Admin verwaltet werden. Außerdem wird ein Raketenicon das Wordpressicon ersetzen.</span>
                 <form class="py-2 pt-4" method="post" action="
                 <?php
                 if(isset($_POST['color_submit'])){
@@ -176,6 +176,11 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                         <option value="<?php echo "nicht_ausgewaehlt"; ?>"><?php echo "nicht ausgewaehlt"; ?></option>
                                                         <?php
                                                     }
+                                                    if(strcmp($tmp,"versteckt")!=0){
+                                                        ?>
+                                                        <option value="<?php echo "versteckt"; ?>"><?php echo "versteckt"; ?></option>
+                                                        <?php
+                                                    }
                                                     foreach (array_keys($roles['administrator']['capabilities']) as $capability){
                                                         if(strcmp($capability,$menuARR[1])!=0 && strcmp($capability,$tmp)!=0){
                                                             ?>
@@ -255,6 +260,14 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                                                                         <option value="<?php echo "nicht_ausgewaehlt"; ?>"><?php echo "nicht ausgewaehlt"; ?></option>
                                                                         <?php
                                                                     }
+                                                                    if(strcmp($tmp,"versteckt")!=0){
+                                                                        ?>
+                                                                        <option value="<?php echo "versteckt"; ?>"><?php echo "versteckt"; ?></option>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                    <option value="<?php echo "versteckt"; ?>"><?php echo "versteckt"; ?></option>
+                                                                    <?php
                                                                     foreach (array_keys($roles['administrator']['capabilities']) as $capability){
                                                                         if(strcmp($capability,$submenuARR[1])!=0 && strcmp($capability,$tmp)!=0){
                                                                             ?>

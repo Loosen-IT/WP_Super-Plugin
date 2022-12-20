@@ -141,6 +141,9 @@ function override_menu_defaults(){
     require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
     if(is_function_activated('custom_menus')){
 
+        $menu_buffer = array();
+        $submenu_buffer = array();
+
         global $menu, $submenu;
         foreach($menu as $menuarr){
             $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$menuarr[2], 'old_name'=>cut_menu_name($menuarr[0])));
@@ -151,6 +154,9 @@ function override_menu_defaults(){
                 $override=str_replace(cut_menu_name($menu[$index][0]),$name,$menu[$index][0]);
                 $menu[$index][0]=$override;
             }
+
+            $menu_buffer = array_merge($menu,$menu_buffer);
+
             if(!is_null($capability)){
                 if(strcmp($capability,"nicht_ausgewaehlt")!=0 && !current_user_can($capability)){
                     remove_menu_page($menuarr[2]);
@@ -162,9 +168,12 @@ function override_menu_defaults(){
                     $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
                     $capability=get_database_value_MULT('super_menus', 'capability', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
 
-                    if(!is_null($name)){
-
+                    $index=array_search($subarr,$submenu[$menuarr[2]]);
+                    if(!is_null($name) && !isset($subarr[$index][0])){
+                        $override=str_replace(cut_menu_name($subarr[0]),$name,$subarr[0]);
+                        $submenu[$menuarr[2]][$index][0]=$override;
                     }
+
                     if(!is_null($capability)){
                         if(strcmp($capability,"nicht_ausgewaehlt")!=0 && !current_user_can($capability)){
                             remove_submenu_page($menuarr[2],$subarr[2]);
@@ -172,25 +181,9 @@ function override_menu_defaults(){
                     }
                 }
             }
+
+            define('SUPER_MENU_BUFFER',$menu_buffer);
         }
-
-        foreach($submenu as $sub){
-            foreach($sub as $subarr){
-                $name=get_database_value_MULT('super_menus', 'new_name', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
-                $capability=get_database_value_MULT('super_menus', 'capability', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
-                $index=array_search($subarr,$sub);
-                if(!is_null($name)){
-                    $override=str_replace(cut_menu_name($sub[$index][0]),$name,$sub[$index][0]);
-                    $submenu[array_search($sub,$submenu)][$index][0]=$override;
-                }
-                if(!is_null($capability)){
-                    if(strcmp($capability,"nicht_ausgewaehlt")!=0 && !current_user_can($capability)){
-
-                    }
-                }
-            }
-        }
-
     }
 }
 add_action( 'admin_menu', 'override_menu_defaults', 999);

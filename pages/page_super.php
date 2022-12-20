@@ -45,7 +45,7 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
                     if(isset($_POST['custom_colors'])){ wp_enqueue_style('super-style',plugin_dir_url(__DIR__).'/styles/style.css'); }
                 }
                 ?>">
-                    <input type="checkbox" name="custom_colors" <?php if(is_function_activated('custom_colors')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Farbanpassung für WP-Admin</label><br>
+                    <input type="checkbox" name="custom_colors" <?php if(is_function_activated('custom_colors')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Farbanpassung und Raketen-Icon für WP-Admin</label><br>
                     <input type="checkbox" name="custom_menus" <?php if(is_function_activated('custom_menus')) { echo 'checked'; } ?>><label style="vertical-align:top; padding-left:0.5em;">Menümanager für WP-Admin</label><br>
                     <div class="pt-3 pb-1">
                         <button name="menu_submit" class="btn btn-secondary" type="submit">Bestätige</button>
