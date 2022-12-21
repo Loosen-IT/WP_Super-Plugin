@@ -8,8 +8,13 @@ function cut_menu_name($name){
 //Finds Url of a WP-Admin menu
 function get_admin_menu_item_url( $menu_item_file, $submenu_as_parent = true ) {
     global $self, $parent_file, $submenu_file, $plugin_page, $typenow;
-    $menu = SUPER_MENU_BUFFER;
-    $submenu = SUPER_SUBMENU_BUFFER;
+
+    if(defined('SUPER_MENU_BUFFER')){ $menu = SUPER_MENU_BUFFER; }
+    else global $menu;
+
+    if(defined('SUPER_SUBMENU_BUFFER')){ $submenu = SUPER_SUBMENU_BUFFER; }
+    else global $submenu;
+
     $admin_is_parent = false;
     $item = '';
     $submenu_item = '';
@@ -188,9 +193,9 @@ function override_menu_defaults(){
                 $submenu_buffer[$menuarr[2]]=$submenuarr_buffer;
             }
         }
+        define('SUPER_MENU_BUFFER',$menu_buffer);
+        define('SUPER_SUBMENU_BUFFER',$submenu_buffer);
     }
-    define('SUPER_MENU_BUFFER',$menu_buffer);
-    define('SUPER_SUBMENU_BUFFER',$submenu_buffer);
 }
 add_action( 'admin_menu', 'override_menu_defaults', 999);
 

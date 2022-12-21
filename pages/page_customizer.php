@@ -125,8 +125,13 @@ require_once(plugin_dir_path(__DIR__).'/styles/style_creator.php')
                 </div>
                 <?php
                 global $wp_roles;
-                $menu = SUPER_MENU_BUFFER;
-                $submenu = SUPER_SUBMENU_BUFFER;
+
+                if(defined('SUPER_MENU_BUFFER')){ $menu = SUPER_MENU_BUFFER; }
+                else global $menu;
+
+                if(defined('SUPER_SUBMENU_BUFFER')){ $submenu = SUPER_SUBMENU_BUFFER; }
+                else global $submenu;
+
                 $roles = $wp_roles->roles;
                 $index = 0;
                 $counter = 0;

@@ -42,7 +42,7 @@ function rd_duplicate_post_as_draft(){
             'post_parent'    => $post->post_parent,
             'post_password'  => $post->post_password,
             'post_status'    => $post->post_status,
-            'post_title'     => $post->post_title. ' [KOPIE]',
+            'post_title'     => $post->post_title. ' [DUPLIKAT]',
             'post_type'      => $post->post_type,
             'to_ping'        => $post->to_ping,
             'menu_order'     => $post->menu_order
