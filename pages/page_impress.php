@@ -24,22 +24,25 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         <div class="col-2"></div>
         <div class="col-4">
             <div class="card">
-                <a target="_blank" href="https://loosen-it.de">
                     <style>
                         .fill {
                             display: block;
-                            justify-content: center;
                             width:100%;
                             height:14rem;
                         }
-                        .fill img {
-                            margin-top:-0.5rem;
+
+                        .fill a {
+                            vertical-align: bottom;
+                            display: block;
+                            margin-bottom:-2rem;
                         }
+
                     </style>
                     <div class="fill">
-                        <img src="<?php echo plugin_dir_url(__DIR__).'/pages/source/loosen-it.png'; ?>" class="rounded mx-auto d-block card-img-top">
+                        <a target="_blank" href="https://loosen-it.de">
+                            <img src="<?php echo plugin_dir_url(__DIR__).'/pages/source/loosen-it.png'; ?>" class="rounded mx-auto d-block card-img-top">
+                        </a>
                     </div>
-                </a>
                 <div class="card-body">
                     <h5 class="card-title">Lizenzurheber</h5>
                     <label>
@@ -54,11 +57,11 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         </div>
         <div class="col-4">
             <div class="card">
-                <a target="_blank" href="https://designraketen.de/">
-                    <div class="fill">
+                <div style="padding-top:1rem" class="fill">
+                    <a target="_blank" href="https://designraketen.de/">
                         <img src="<?php echo plugin_dir_url(__DIR__).'/pages/source/designraketen.png'; ?>" class="rounded mx-auto d-block card-img-top">
-                    </div>
-                </a>
+                    </a>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">Lizenzinhaber</h5>
                     <label>
