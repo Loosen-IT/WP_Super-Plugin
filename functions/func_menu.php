@@ -172,7 +172,7 @@ function override_menu_defaults(){
                     $capability=get_database_value_MULT('super_menus', 'capability', array('slug'=>$subarr[2], 'old_name'=>cut_menu_name($subarr[0])));
 
                     $index=array_search($subarr,$submenu[$menuarr[2]]);
-                    if(!is_null($name) && !isset($subarr[$index][0])){
+                    if(!is_null($name)){
                         $override=str_replace(cut_menu_name($subarr[0]),$name,$subarr[0]);
                         $submenu[$menuarr[2]][$index][0]=$override;
                     }

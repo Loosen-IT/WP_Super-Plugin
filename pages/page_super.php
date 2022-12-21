@@ -36,7 +36,7 @@ require_once(plugin_dir_path(__DIR__).'/database/data_control.php');
         <div class="col-6">
             <div class="container bg-light rounded border">
                 <h5 class="pt-2">Individualisierung</h5>
-                <span>Passe das WP-Admin Menü nach deinen Vorlieben an.</span>
+                <span>Passe das WP-Admin Menü nach eigenen Vorlieben an.</span>
                 <form class="py-2" method="post" action="
                 <?php
                 if(isset($_POST['menu_submit'])){
