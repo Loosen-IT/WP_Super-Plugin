@@ -10,7 +10,7 @@ add_action( 'admin_bar_menu', 'remove_wp_logo', 100 );
 
 //Adds new Wordpress Logo
 function new_wordpress_logo() {
-    if (is_function_activated('custom_colors')) {
+    if (function_exists('is_function_activated') && is_function_activated('custom_colors')) {
         global $wp_admin_bar;
         $wp_admin_bar->add_menu( array(
             'id'    => 'photo-printing',
